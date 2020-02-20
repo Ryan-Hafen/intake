@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from srs_intake import app
 from srs_intake.forms import RegistrationForm, LoginForm
-from srs_intake.models import User, Post
+from srs_intake.models import Facility, User, Referral
 
 
 posts = [
