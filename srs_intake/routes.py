@@ -1,23 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, jsonify
 from srs_intake import app, db, bcrypt
-from srs_intake.forms import RegistrationForm, LoginForm, CreateUserForm, CreateFacilityForm, UpdateAccountForm
+from srs_intake.forms import RegistrationForm, LoginForm, UserForm, FacilityForm, UpdateAccountForm, ReferralForm
 from srs_intake.models import Facility, User, Referral
 from flask_login import login_user, current_user, logout_user, login_required
-
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
 
 
 @app.route("/")
@@ -40,10 +25,10 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route("/create_user", methods=['GET', 'POST'])
+@app.route("/user/new", methods=['GET', 'POST'])
 # @login_required
 def create_user():
-    form = CreateUserForm()
+    form = UserForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=hashed_password)
@@ -54,10 +39,10 @@ def create_user():
     return render_template('create_user.html', title='Create User', form=form)
 
 
-@app.route("/create_facility", methods=['GET', 'POST'])
+@app.route("/facility/new", methods=['GET', 'POST'])
 # @login_required
 def create_facility():
-    form = CreateFacilityForm()
+    form = FacilityForm()
     if form.validate_on_submit():
         facility = Facility(name=form.name.data,address1=form.address1.data, address2=form.address2.data, city=form.city.data, state=form.state.data, zip_code=form.zip_code.data, source=form.source.data)
         db.session.add(facility)
@@ -111,3 +96,13 @@ def account():
         form.fax.data = current_user.fax
         form.username.data = current_user.username
     return render_template('account.html', title=f'Update {current_user.username}\'s account', form=form)
+
+
+@app.route("/referral/new", methods=['GET', 'POST'])
+# @login_required
+def new_referral():  
+    form = ReferralForm()   
+    if form.validate_on_submit():
+        flash('Your referal has been submitted!', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_referral.html', title='New Referral', form=form)

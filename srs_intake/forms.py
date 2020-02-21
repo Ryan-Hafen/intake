@@ -1,6 +1,6 @@
 import phonenumbers
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, TextAreaField, RadioField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from srs_intake.models import Facility, User, Referral
 
@@ -34,7 +34,7 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')    
         
-class CreateUserForm(FlaskForm):
+class UserForm(FlaskForm):
     facilities = Facility.query.all()
 
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -59,7 +59,7 @@ class CreateUserForm(FlaskForm):
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')
         
-class CreateFacilityForm(FlaskForm):
+class FacilityForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20),])
     address1 = StringField('Address 1', validators=[Length(min=2, max=20)])
     address2 = StringField('Address 2')
@@ -97,4 +97,62 @@ class UpdateAccountForm(FlaskForm):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError('That email is taken. Please choose a different one.')    
+                raise ValidationError('That email is taken. Please choose a different one.')   
+        
+class ReferralForm(FlaskForm):
+    firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20),])
+    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20),])
+    ssn = StringField('SSN', validators=[DataRequired(), Length(min=9, max=9),])
+    phone = StringField('Phone', [validate_phone])
+    email = StringField('Email', validators=[Email()])
+    dob = DateField('Date of Birth', format='%Y-%m-%d')
+    poa = StringField('P.O.A.')
+    contact = StringField('Contact #', [validate_phone])
+    poa_address1 = StringField('P.O.A. Address', validators=[Length(min=2, max=20)])
+    city = StringField('City')
+    state = SelectField('State',choices=state_list)
+    zip_code = StringField('Zip Code')
+    medicare = StringField('Medicare #', validators=[DataRequired(), Length(min=5, max=15),])
+    secondary = StringField('Secondary Insurance #', validators=[DataRequired(), Length(min=5, max=15),])
+    notes = TextAreaField('Diagnosis / Reason for referral / Additional notes')
+    disc_slp = BooleanField('SLP Speech - Language Pathology')
+    disc_ot = BooleanField('OT Occupational Therapy')
+    disc_pt = BooleanField('PT Physical Therapy')
+    treat_oral = BooleanField('Treatment of Swallowing Dysfunction/ Oral Function')
+    treat_speech = BooleanField('Treatment of Speech, Voice, and Language Deficits')
+    treat_cognitive = BooleanField('Cognitive Skills Development')
+    treat_caregiver = BooleanField('Caregiver Education')
+    treat_dementia = BooleanField('Dementia Management/Caregiver Training')
+    treat_adl = BooleanField('ADL Training/Safety')
+    treat_safety = BooleanField('Home Safety Assessment')
+    treat_upper_extremity = BooleanField('Upper Extremity Prosthetic or Orthotic  Fitting and Training')
+    treat_ther_exercise = BooleanField('Therapeutic Exercise')
+    treat_balance = BooleanField('Balance Training')
+    treat_ther_activity = BooleanField('Therapeutic Activity')
+    treat_coordination = BooleanField('Coordination Propioception Training')
+    treat_transfer = BooleanField('Transfer Training')
+    treat_range = BooleanField('Range of Motion')
+    treat_massage = BooleanField('Manual Therapy/Massage')
+    treat_pain = BooleanField('Pain Management')
+    treat_wheelchair = BooleanField('Wheelchair Provision/Training')
+    treat_lower_extremity = BooleanField('Lower Extremity Prosthetic or Orthotic  Fitting and Training')
+    treat_cane = BooleanField('Provision of Assistive Device i.e. cane,  walker')
+    treat_postural = BooleanField('Postural Training')
+    treat_gait = BooleanField('Gait/Endurance Training')
+    treat_other = BooleanField('Other')
+    treat_other_desc = StringField('Other Description ')
+    med_type_phy = RadioField('PT Physical Therapy')
+    med_type_np = RadioField('SLP Speech - Language Pathology')
+    med_type_pa = RadioField('OT Occupational Therapy')
+    med_firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20),])
+    med_lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20),])
+    med_npi = StringField('NPI', [validate_phone])
+    med_address1 = StringField('Address 1', validators=[Length(min=2, max=20)])
+    med_address2 = StringField('Address 2')
+    med_city = StringField('City')
+    med_state = SelectField('State',choices=state_list)
+    med_zip_code = StringField('Zip Code')
+    med_email = StringField('Email', validators=[Email()])
+    med_phone = StringField('Phone', [validate_phone])
+    med_fax = StringField('Fax', [validate_phone])
+    submit = SubmitField('Save') 
