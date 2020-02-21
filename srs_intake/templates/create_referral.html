@@ -595,49 +595,16 @@
       <div class="form-row">
         <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Primary Medical contact Info</legend>
       </div>
-      <div class="form-row d-flex justify-content-between">
-        <div class="form-check form-check-inline form-group col-sm-3">
-          {{ form.med_type_phy.label(class="form-control-label") }}
-          {% if form.med_type_phy.errors %}
-              {{ form.med_type_phy(class="form-control form-control-sm is-invalid") }}
-              <div class="invalid-feedback">
-                  {% for error in form.med_type_phy.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-          {% else %}
-              {{ form.med_type_phy(class="form-control form-control-sm") }}
-          {% endif %}
-        </div>
-        <div class="form-check form-check-inline form-group col-sm-3">
-          {{ form.med_type_np.label(class="form-control-label") }}
-          {% if form.med_type_np.errors %}
-              {{ form.med_type_np(class="form-control form-control-sm is-invalid") }}
-              <div class="invalid-feedback">
-                  {% for error in form.med_type_np.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-          {% else %}
-              {{ form.med_type_np(class="form-control form-control-sm") }}
-          {% endif %}
-        </div>
-        <div class="form-check form-check-inline form-group col-sm-3">
-          {{ form.med_type_pa.label(class="form-control-label") }}
-          {% if form.med_type_pa.errors %}
-              {{ form.med_type_pa(class="form-control form-control-sm is-invalid") }}
-              <div class="invalid-feedback">
-                  {% for error in form.med_type_pa.errors %}
-                      <span>{{ error }}</span>
-                  {% endfor %}
-              </div>
-          {% else %}
-              {{ form.med_type_pa(class="form-control form-control-sm") }}
-          {% endif %}
+      <div class="form-row">
+        <div class="form-check form-check-inline form-group col-sm-12">
+            {% for subfield in form.med_type %}
+                {{ subfield(class="col-sm-1") }}
+                {{ subfield.label(class="form-check-label") }}
+            {% endfor %}
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           {{ form.med_firstname.label(class="form-control-label") }}
           {% if form.med_firstname.errors %}
               {{ form.med_firstname(class="form-control form-control-sm is-invalid") }}
@@ -650,7 +617,7 @@
               {{ form.med_firstname(class="form-control form-control-sm") }}
           {% endif %}
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           {{ form.med_lastname.label(class="form-control-label") }}
           {% if form.med_lastname.errors %}
               {{ form.med_lastname(class="form-control form-control-sm is-invalid") }}
@@ -663,7 +630,7 @@
               {{ form.med_lastname(class="form-control form-control-sm") }}
           {% endif %}
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           {{ form.med_npi.label(class="form-control-label") }}
           {% if form.med_npi.errors %}
               {{ form.med_npi(class="form-control form-control-sm is-invalid") }}
@@ -691,20 +658,21 @@
               {{ form.med_address1(class="form-control form-control-sm") }}
           {% endif %}
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            {{ form.med_address2.label(class="form-control-label") }}
-            {% if form.med_address2.errors %}
-                {{ form.med_address2(class="form-control form-control-sm is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.med_address2.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.med_address2(class="form-control form-control-sm") }}
-            {% endif %}
-          </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+        {{ form.med_address2.label(class="form-control-label") }}
+        {% if form.med_address2.errors %}
+            {{ form.med_address2(class="form-control form-control-sm is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.med_address2.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.med_address2(class="form-control form-control-sm") }}
+        {% endif %}
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
@@ -795,11 +763,6 @@
           </div>
     </div>
   </form>
-  <div class="border-top pt-3">
-      <small class="text-muted">
-          Need to add a user?<a class="ml-2" href="{{ url_for('create_user') }}">Click Here</a>
-      </small>
-  </div>
 </div>
 </div>
 {% endblock content %}

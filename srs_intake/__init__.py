@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = 'd0fadee28187514ce8d4d43f40cb5284327e8e3d921a33163640
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app)
-# from srs_intake.models import User, Facility, Referral
+# from .models import User, Facility, Referral
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
