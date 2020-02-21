@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, jsonify
 from srs_intake import app, db, bcrypt
-# from srs_intake.forms import RegistrationForm, LoginForm, CreateUserForm, CreateFacilityForm
-# from srs_intake.models import Facility, User, Referral
-# from flask_login import login_user, current_user, logout_user, login_required
+from srs_intake.forms import RegistrationForm, LoginForm, CreateUserForm, CreateFacilityForm, UpdateAccountForm
+from srs_intake.models import Facility, User, Referral
+from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
     {
@@ -23,12 +23,13 @@ posts = [
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=posts)
+    users = User.query.all()
+    return render_template('home.html', users=users)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('home'))
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data)
@@ -45,7 +46,7 @@ def create_user():
     form = CreateUserForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=form.password.data)
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('The User was created Successfully', 'success')
@@ -68,16 +69,15 @@ def create_facility():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('home'))
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            # next_page = request.args.get('next')
-            # return redirect(next_page) if next_page else redirect(url_for('home'))
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -89,7 +89,25 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/account")
-# @login_required
+@app.route("/account", methods=['GET', 'POST'])
+@login_required
 def account():
-    return render_template('account.html', title='Account')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.firstname.data = form.firstname
+        current_user.lastname.data = form.lastname
+        current_user.email.data = form.email
+        current_user.phone.data = form.phone
+        current_user.fax.data = form.fax
+        current_user.username.data = form.username
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.firstname.data = current_user.firstname
+        form.lastname.data = current_user.lastname
+        form.email.data = current_user.email
+        form.phone.data = current_user.phone
+        form.fax.data = current_user.fax
+        form.username.data = current_user.username
+    return render_template('account.html', title=f'Update {current_user.username}\'s account', form=form)

@@ -7,17 +7,17 @@
           </h5>
       </div>
   </div>
-  {% for post in posts %}
+  {% for user in users %}
     <div class="row">
       <div class="col-md-12">
         <div class="content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted }}</small>
+              <a class="mr-2" href="#">{{ user.firstname }}</a>
+              <small class="text-muted">{{ user.lastname }}</small>
             </div>
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
+            <h2><a class="article-title" href="#">{{ user.role }}</a></h2>
+            <p class="article-content">{{ user.user_loc.name }}</p>
           </div>
         </div>
       </div>
