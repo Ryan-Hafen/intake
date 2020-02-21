@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from srs_intake import app, db, bcrypt
-from srs_intake.forms import RegistrationForm, LoginForm, CreateUserForm, CreateFacilityForm
-from srs_intake.models import Facility, User, Referral
-from flask_login import login_user, current_user, logout_user, login_required
+# from srs_intake.forms import RegistrationForm, LoginForm, CreateUserForm, CreateFacilityForm
+# from srs_intake.models import Facility, User, Referral
+# from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
     {
@@ -25,15 +25,13 @@ posts = [
 def home():
     return render_template('home.html', posts=posts)
 
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=form.password.data)
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
@@ -60,9 +58,8 @@ def create_user():
 def create_facility():
     form = CreateFacilityForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=form.password.data)
-        db.session.add(user)
+        facility = Facility(name=form.name.data,address1=form.address1.data, address2=form.address2.data, city=form.city.data, state=form.state.data, zip_code=form.zip_code.data, source=form.source.data)
+        db.session.add(facility)
         db.session.commit()
         flash('The Facility was created Successfully', 'success')
         return redirect(url_for('login'))
@@ -71,15 +68,16 @@ def create_facility():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            # next_page = request.args.get('next')
+            # return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -92,6 +90,6 @@ def logout():
 
 
 @app.route("/account")
-@login_required
+# @login_required
 def account():
     return render_template('account.html', title='Account')

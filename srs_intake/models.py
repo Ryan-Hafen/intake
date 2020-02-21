@@ -1,18 +1,19 @@
 from datetime import datetime
-from srs_intake import db, login_manager
-from flask_login import UserMixin
+from srs_intake import db
+# , login_manager
+# from flask_login import UserMixin
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User.query.get(int(user_id))
 
 
 class Facility(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=True)
     address1 = db.Column(db.String(120), nullable=True)
-    address2 =db.Column(db.String(120), nullable=True)
+    address2 = db.Column(db.String(120), nullable=True)
     city = db.Column(db.String(20), nullable=True)
     state = db.Column(db.String(2), nullable=True)
     zip_code = db.Column(db.String(10), nullable=True)
@@ -24,16 +25,17 @@ class Facility(db.Model):
         return f"Facility('{self.name}', '{self.city}', '{self.state}')"
 
 
-class User(db.Model, UserMixin):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20), nullable=True)
     lastname = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=True)
-    phone = db.Column(db.String(20), unique=True, nullable=True)
+    phone = db.Column(db.String(20), nullable=True)
     fax = db.Column(db.String(20), nullable=True)
     role = db.Column(db.String(20), nullable=True)
     username = db.Column(db.String(20), unique=True, nullable=True)
     password = db.Column(db.String(60), nullable=True)
+    password_rest = db.Column(db.Boolean, nullable=True, default=True)
     facility_id = db.Column(db.Integer, db.ForeignKey('facility.id'), nullable=True)
     facility = db.relationship('Facility', backref='submitter', lazy=True)
 
@@ -46,7 +48,7 @@ class Referral(db.Model):
     firstname = db.Column(db.String(20), nullable=True)
     lastname = db.Column(db.String(20), nullable=True)
     address1 = db.Column(db.String(120), nullable=True)
-    address2 =db.Column(db.String(120), nullable=True)
+    address2 = db.Column(db.String(120), nullable=True)
     city = db.Column(db.String(20), nullable=True)
     state = db.Column(db.String(2), nullable=True)
     zip_code = db.Column(db.String(10), nullable=True)
