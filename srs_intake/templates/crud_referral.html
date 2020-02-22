@@ -1,0 +1,766 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
+    <div class="lh-100">
+        <h5 class="lh-100">
+            {{ title }}
+        </h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="form-row">
+                  <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Patient Info</legend>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.firstname.label(class="form-control-label") }}
+                        {% if form.firstname.errors %}
+                            {{ form.firstname(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.firstname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.firstname(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.lastname.label(class="form-control-label") }}
+                        {% if form.lastname.errors %}
+                            {{ form.lastname(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.lastname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.lastname(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.ssn.label(class="form-control-label") }}
+                        {% if form.ssn.errors %}
+                            {{ form.ssn(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.ssn.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.ssn(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.phone.label(class="form-control-label") }}
+                        {% if form.phone.errors %}
+                            {{ form.phone(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.phone.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.phone(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.dob.label(class="form-control-label") }}
+                        {% if form.dob.errors %}
+                            {{ form.dob(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.dob.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.dob(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.poa.label(class="form-control-label") }}
+                        {% if form.poa.errors %}
+                            {{ form.poa(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.poa.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.poa(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.contact.label(class="form-control-label") }}
+                        {% if form.contact.errors %}
+                            {{ form.contact(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.contact.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.contact(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ form.poa_address1.label(class="form-control-label") }}
+                        {% if form.poa_address1.errors %}
+                            {{ form.poa_address1(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.poa_address1.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.poa_address1(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.city.label(class="form-control-label") }}
+                        {% if form.city.errors %}
+                            {{ form.city(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.city.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.city(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.state.label(class="form-control-label") }}
+                        {% if form.state.errors %}
+                            {{ form.state(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.state.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.state(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.zip_code.label(class="form-control-label") }}
+                        {% if form.zip_code.errors %}
+                            {{ form.zip_code(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.zip_code.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.zip_code(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.medicare.label(class="form-control-label") }}
+                        {% if form.medicare.errors %}
+                            {{ form.medicare(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.medicare.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.medicare(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.secondary.label(class="form-control-label") }}
+                        {% if form.secondary.errors %}
+                            {{ form.secondary(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.secondary.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.secondary(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                  <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Diagnosis / Reason for referral / Additional notes</legend>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {% if form.notes.errors %}
+                            {{ form.notes(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.notes.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.notes(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Discipline to evaluate &amp; treat</legend>
+                    </div>
+                    <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                        {% if form.disc_slp.errors %}
+                            {{ form.disc_slp(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.disc_slp.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.disc_slp(class="col-sm-1") }}
+                        {% endif %}
+                        {{ form.disc_slp.label(class="form-check-label pl-1") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                        {% if form.disc_ot.errors %}
+                            {{ form.disc_ot(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.disc_ot.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.disc_ot(class="col-sm-1") }}
+                        {% endif %}
+                        {{ form.disc_ot.label(class="form-check-label pl-1") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                        {% if form.disc_pt.errors %}
+                            {{ form.disc_pt(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.disc_pt.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.disc_pt(class="col-sm-1") }}
+                        {% endif %}
+                        {{ form.disc_pt.label(class="form-check-label pl-2") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-row d-flex justify-content-between">
+                    <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Evaluate &amp; treat as indicated</legend>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_oral.errors %}
+                          {{ form.treat_oral(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_oral.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_oral(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_oral.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_speech.errors %}
+                          {{ form.treat_speech(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_speech.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_speech(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_speech.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_cognitive.errors %}
+                          {{ form.treat_cognitive(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_cognitive.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_cognitive(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_cognitive.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_caregiver.errors %}
+                          {{ form.treat_caregiver(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_caregiver.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_caregiver(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_caregiver.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_dementia.errors %}
+                          {{ form.treat_dementia(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_dementia.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_dementia(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_dementia.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_adl.errors %}
+                          {{ form.treat_adl(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_adl.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_adl(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_adl.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_safety.errors %}
+                          {{ form.treat_safety(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_safety.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_safety(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_safety.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_upper_extremity.errors %}
+                          {{ form.treat_upper_extremity(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_upper_extremity.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_upper_extremity(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.disc_pt.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_ther_exercise.errors %}
+                          {{ form.treat_ther_exercise(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_ther_exercise.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_ther_exercise(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_ther_exercise.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_balance.errors %}
+                          {{ form.treat_balance(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_balance.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_balance(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_balance.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_ther_activity.errors %}
+                          {{ form.treat_ther_activity(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_ther_activity.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_ther_activity(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_ther_activity.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_coordination.errors %}
+                          {{ form.treat_coordination(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_coordination.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_coordination(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_coordination.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_transfer.errors %}
+                          {{ form.treat_transfer(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_transfer.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_transfer(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_transfer.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_range.errors %}
+                          {{ form.treat_range(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_range.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_range(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_range.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_massage.errors %}
+                          {{ form.treat_massage(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_massage.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_massage(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_massage.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_pain.errors %}
+                          {{ form.treat_pain(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_pain.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_pain(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_pain.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_wheelchair.errors %}
+                          {{ form.treat_wheelchair(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_wheelchair.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_wheelchair(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_wheelchair.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_lower_extremity.errors %}
+                          {{ form.treat_lower_extremity(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_lower_extremity.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_lower_extremity(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_lower_extremity.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between">
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_cane.errors %}
+                          {{ form.treat_cane(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_cane.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_cane(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_cane.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_postural.errors %}
+                          {{ form.treat_postural(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_postural.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_postural(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_postural.label(class="form-check-label pl-2") }}
+                    </div>
+                    <div class="form-check form-check-inline form-group col-sm-3">
+                      {% if form.treat_gait.errors %}
+                          {{ form.treat_gait(class="is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.treat_gait.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.treat_gait(class="col-sm-1") }}
+                      {% endif %}
+                      {{ form.treat_gait.label(class="form-check-label pl-2") }}
+                    </div>
+                  </div>
+                  <div class="form-row ">
+                        <div class="form-check form-check-inline form-group col-sm-3">
+                            {% if form.treat_other.errors %}
+                                {{ form.treat_other(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.treat_other.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.treat_other(class="col-sm-1") }}
+                            {% endif %}
+                            {{ form.treat_other.label(class="form-check-label pl-2 pr-2") }}
+                        </div>
+                        <div class="form-group col-sm-8">
+                            {% if form.treat_other_desc.errors %}
+                                {{ form.treat_other_desc(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.treat_other_desc.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.treat_other_desc(class="col-sm-8") }}
+                            {% endif %}
+                        </div>
+                  </div>
+                </div>
+                </div><div class="form-row">
+                    <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Primary Medical Contact Info</legend>
+                  </div>
+                  <div class="form-row">
+                    {% for subfield in form.med_type %}
+                        <div class="form-check form-check-inline form-group col-sm-2">
+                            {{ subfield(class="col-sm-1") }}
+                            {{ subfield.label(class="form-check-label") }}
+                        </div>
+                    {% endfor %}
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-4">
+                          {{ form.med_firstname.label(class="form-control-label") }}
+                          {% if form.med_firstname.errors %}
+                              {{ form.med_firstname(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_firstname.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_firstname(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_lastname.label(class="form-control-label") }}
+                          {% if form.med_lastname.errors %}
+                              {{ form.med_lastname(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_lastname.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_lastname(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_npi.label(class="form-control-label") }}
+                          {% if form.med_npi.errors %}
+                              {{ form.med_npi(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_npi.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_npi(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ form.med_phone.label(class="form-control-label") }}
+                        {% if form.med_phone.errors %}
+                            {{ form.med_phone(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.med_phone.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.med_phone(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_fax.label(class="form-control-label") }}
+                          {% if form.med_fax.errors %}
+                              {{ form.med_fax(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_fax.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_fax(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_email.label(class="form-control-label") }}
+                          {% if form.med_email.errors %}
+                              {{ form.med_email(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_email.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_email(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-12">
+                          {{ form.med_address1.label(class="form-control-label") }}
+                          {% if form.med_address1.errors %}
+                              {{ form.med_address1(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_address1.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_address1(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-12">
+                          {{ form.med_address2.label(class="form-control-label") }}
+                          {% if form.med_address2.errors %}
+                              {{ form.med_address2(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_address2.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_address2(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-4">
+                          {{ form.med_city.label(class="form-control-label") }}
+                          {% if form.med_city.errors %}
+                              {{ form.med_city(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_city.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_city(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_state.label(class="form-control-label") }}
+                          {% if form.med_state.errors %}
+                              {{ form.med_state(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_state.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_state(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {{ form.med_zip_code.label(class="form-control-label") }}
+                          {% if form.med_zip_code.errors %}
+                              {{ form.med_zip_code(class="form-control form-control-sm is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.med_zip_code.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.med_zip_code(class="form-control form-control-sm") }}
+                          {% endif %}
+                      </div>
+                  </div>
+                <div class="form-row d-flex justify-content-end">
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -7,6 +7,7 @@ from srs_intake.models import Facility, User, Referral
 
 state_list = [('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','District Of Columbia'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
 source_list = [('alf','ALF'),('hospital','Hospital'),('pcp','PCP'),('snf','SNF'),('specialist','Specialist')]
+med_type_list = [('physician','Physician'),('np','NP'),('pa','PA')]
 
 def validate_phone(form, field):
     try:
@@ -61,7 +62,7 @@ class UserForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
         
 class FacilityForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20),])
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
     address1 = StringField('Address 1', validators=[Length(min=2, max=20)])
     address2 = StringField('Address 2')
     city = StringField('City')
@@ -76,8 +77,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class UpdateAccountForm(FlaskForm):
-
+class AccountForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[Email()])
@@ -101,20 +101,20 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')   
         
 class ReferralForm(FlaskForm):
-    firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20),])
-    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20),])
-    ssn = StringField('SSN', validators=[DataRequired(), Length(min=9, max=9),])
-    phone = StringField('Phone', [validate_phone])
-    email = StringField('Email', validators=[Email()])
-    dob = DateField('Date of Birth', format='%Y-%m-%d')
-    poa = StringField('P.O.A.')
-    contact = StringField('Contact #', [validate_phone])
-    poa_address1 = StringField('P.O.A. Address', validators=[Length(min=2, max=20)])
+    firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
+    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
+    ssn = StringField('SSN', validators=[DataRequired(), Length(min=2, max=20)])
+    phone = StringField('Phone')
+    email = StringField('Email')
+    dob = DateField('Date of Birth')
+    poa = StringField('P.O.A')
+    contact = StringField('Contact')
+    poa_address1 = StringField('P.O.A Address')
     city = StringField('City')
-    state = SelectField('State',choices=state_list)
+    state = SelectField('State',choices=state_list,default='CA')
     zip_code = StringField('Zip Code')
-    medicare = StringField('Medicare #', validators=[DataRequired(), Length(min=5, max=15),])
-    secondary = StringField('Secondary Insurance #', validators=[DataRequired(), Length(min=5, max=15),])
+    medicare = StringField('Medicare', validators=[DataRequired(), Length(min=2, max=20)])
+    secondary = StringField('Secondary', validators=[DataRequired(), Length(min=2, max=20)])
     notes = TextAreaField('Diagnosis / Reason for referral / Additional notes')
     disc_slp = BooleanField('SLP Speech - Language Pathology')
     disc_ot = BooleanField('OT Occupational Therapy')
@@ -141,17 +141,17 @@ class ReferralForm(FlaskForm):
     treat_postural = BooleanField('Postural Training')
     treat_gait = BooleanField('Gait/Endurance Training')
     treat_other = BooleanField('Other')
-    treat_other_desc = StringField('Other Description ')
-    med_type = RadioField(choices=[('phy','Physician'),('np','NP'),('pa','PA')])
-    med_firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20),])
-    med_lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20),])
-    med_npi = StringField('NPI', [validate_phone])
-    med_address1 = StringField('Address 1', validators=[Length(min=2, max=20)])
+    treat_other_desc = StringField('Other Description',default='')
+    med_type = RadioField(choices=med_type_list)
+    med_firstname = StringField('First Name')
+    med_lastname = StringField('Last Name')
+    med_npi = StringField('NPI')
+    med_phone = StringField('Phone')
+    med_fax = StringField('Fax')
+    med_email = StringField('Email')
+    med_address1 = StringField('Address 1')
     med_address2 = StringField('Address 2')
     med_city = StringField('City')
-    med_state = SelectField('State',choices=state_list)
+    med_state = SelectField('State',choices=state_list,default='CA')
     med_zip_code = StringField('Zip Code')
-    med_email = StringField('Email', validators=[Email()])
-    med_phone = StringField('Phone', [validate_phone])
-    med_fax = StringField('Fax', [validate_phone])
-    submit = SubmitField('Save') 
+    submit = SubmitField('Save')
