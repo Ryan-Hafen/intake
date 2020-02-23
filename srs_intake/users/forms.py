@@ -1,4 +1,3 @@
-import phonenumbers
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -8,6 +7,7 @@ from srs_intake.utils import validate_phone
 
 
 roles_list = [('admin', 'Admin'), ('facility', 'Facility')]
+facilities_list = Facility.query.all()
 
 class RegistrationForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -15,6 +15,9 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
     phone = StringField('Phone', [validate_phone])
     fax = StringField('Fax', [validate_phone])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Send Request')
 
     def validate_username(self, username):
@@ -28,7 +31,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')  
 
 class UserForm(FlaskForm):
-    facilities = Facility.query.all()
 
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -36,7 +38,7 @@ class UserForm(FlaskForm):
     phone = StringField('Phone', [validate_phone])
     fax = StringField('Fax', [validate_phone])
     role = SelectField('Role', choices=roles_list)
-    facility_id = SelectField('Facility', coerce=int, choices=[(i.id, i.name) for i in facilities])
+    facility_id = SelectField('Facility', coerce=int, choices=[(i.id, i.name) for i in facilities_list])
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
@@ -53,33 +55,33 @@ class UserForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class AccountForm(FlaskForm):
-    firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
-    lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[Email()])
-    phone = StringField('Phone', [validate_phone])
-    fax = StringField('Fax', [validate_phone])
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Update')
+# class AccountForm(FlaskForm):
+#     facilities = Facility.query.all()
 
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError('That username is taken. Please choose a different one.')
+#     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
+#     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
+#     email = StringField('Email', validators=[Email()])
+#     phone = StringField('Phone', [validate_phone])
+#     fax = StringField('Fax', [validate_phone])
+#     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+#     submit = SubmitField('Update')
 
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
+#     def validate_username(self, username):
+#         if username.data != current_user.username:
+#             user = User.query.filter_by(username=username.data).first()
+#             if user:
+#                 raise ValidationError('That username is taken. Please choose a different one.')
+
+#     def validate_email(self, email):
+#         if email.data != current_user.email:
+#             user = User.query.filter_by(email=email.data).first()
+#             if user:
+#                 raise ValidationError('That email is taken. Please choose a different one.')
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

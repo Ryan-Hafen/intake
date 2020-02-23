@@ -13,7 +13,7 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 's.ryan.hafen@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jsvzhpboasikqmfu'
+app.config['MAIL_PASSWORD'] = 'mmnmglazdhpemygl'
 # app.config['protocol'] = 'smtp';
 # app.config['smtp_host'] = 'smtp.gmail.com';
 # app.config['smtp_port'] = 465;
@@ -23,10 +23,9 @@ app.config['MAIL_PASSWORD'] = 'jsvzhpboasikqmfu'
 # app.config['priority'] = 5;
 
 
-db = SQLAlchemy(app)
-# from .models import User, Facility, Referral
+db = SQLAlchemy(app)# from .models import User, Facility, Referral
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 mail = Mail(app)

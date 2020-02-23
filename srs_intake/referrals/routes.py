@@ -1,19 +1,35 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import db
-from srs_intake.models import User, Referral
+from sqlalchemy import and_, or_
+from srs_intake.models import User, Referral, Facility
 from srs_intake.referrals.forms import ReferralForm
+from srs_intake.utils import send_new_referral_email, send_completed_referral_email
 
 referrals = Blueprint('referrals', __name__)
 
+# list of referral by facility 
+# list all referral for admin
+@referrals.route("/referral/list")
+@login_required
+def list_referrals():
+    user = User.query.get(current_user.id)
+    if user.role == 'facility':
+        referrals = referrals = Referral.query.filter(and_(Referral.referral_status != 'complete', Referral.facility_id == user.facility_id)).all()
+        return render_template('referrals/referral_list.html', title="Referrals", referrals=referrals)
+    elif user.role == 'admin':      
+        referrals = referrals = Referral.query.filter(Referral.referral_status != 'complete').all()
+        return render_template('referrals/referral_list.html', title="Referrals", referrals=referrals)
+    else:
+        abort(403)
 
 
 @referrals.route("/referral/new", methods=['GET', 'POST'])
-# @login_required
+@login_required
 def new_referral():
     form = ReferralForm()
     if form.validate_on_submit():
-        user = User.query.get(1)
+        user = User.query.get(current_user.id)
         fac = user.user_loc
         referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data, ssn=form.ssn.data
                            , phone=form.phone.data, email=form.email.data, dob=form.dob.data
@@ -41,24 +57,63 @@ def new_referral():
                            , facility_id=fac.id)
         db.session.add(referral)
         db.session.commit()
+        referral = Referral.query.get(referral.id)
+        s_email = user.email
+        send_new_referral_email(referral, s_email)
         flash('The Referral was submitted successfully.', 'success')
-        return redirect(url_for('main.home'))
-    return render_template('crud_referral.html', title='Create Referral', form=form)
+        return redirect(url_for('referrals.list_referrals'))
+    return render_template('referrals/crud_referral.html', title='Create Referral', form=form)
 
 
 @referrals.route("/referral/<int:referral_id>")
-# @login_required
+@login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
-    return render_template('referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral)
+    user = User.query.get(current_user.id)
+    if referral.facility_id == current_user.facility_id:
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user)
+    elif current_user.role == 'admin':
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user)
+    else:
+        abort(403)
 
+@referrals.route("/referral/<int:referral_id>/complete", methods=['POST'])
+@login_required
+def referral_complete(referral_id):
+    referral = Referral.query.get_or_404(referral_id)
+    user = User.query.get(current_user.id)
+    if user.role == 'admin':
+        referral = Referral.query.get_or_404(referral_id)
+        user = User.query.get(referral.user_id)
 
-@referrals.route("/referral/<int:referral_id>/update", methods=['GET', 'POST'])
-# @login_required
-def update_referral(referral_id):
+        send_completed_referral_email(referral, user.email)
+
+        referral.referral_status = 'complete'
+        db.session.commit()
+
+        flash('The Referral has been completed. ', 'success')
+    return redirect(url_for('main.home'))
+    
+
+@referrals.route("/referral/<int:referral_id>/delete", methods=['POST'])
+@login_required
+def delete_referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     # if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
     #     abort(403)
+    db.session.delete(referral)
+    db.session.commit()
+    flash('The Referral was deleted successfully.', 'success')
+    return redirect(url_for('main.home'))
+
+
+@referrals.route("/referral/<int:referral_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_referral(referral_id):
+    referral = Referral.query.get_or_404(referral_id)
+    user = User.query.get(current_user.id)
+    if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
+        abort(403)
     form = ReferralForm()
     if form.validate_on_submit():
         referral.firstname=form.firstname.data
@@ -171,15 +226,4 @@ def update_referral(referral_id):
         form.med_city.data=referral.med_city
         form.med_state.data=referral.med_state
         form.med_zip_code.data=referral.med_zip_code
-    return render_template('crud_referral.html', title='Update Referral', form=form)
-
-@referrals.route("/referral/<int:referral_id>/delete", methods=['POST'])
-# @login_required
-def delete_referral(referral_id):
-    referral = Referral.query.get_or_404(referral_id)
-    # if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
-    #     abort(403)
-    db.session.delete(referral)
-    db.session.commit()
-    flash('The Referral was deleted successfully.', 'success')
-    return redirect(url_for('main.home'))
+    return render_template('referrals/crud_referral.html', title='Update Referral', form=form)

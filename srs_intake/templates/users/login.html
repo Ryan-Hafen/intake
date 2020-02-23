@@ -14,16 +14,16 @@
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group">
                         <div class="form-group">
-                            {{ form.email.label(class="form-control-label") }}
-                            {% if form.email.errors %}
-                                {{ form.email(class="form-control form-control-sm is-invalid") }}
+                            {{ form.username.label(class="form-control-label") }}
+                            {% if form.username.errors %}
+                                {{ form.username(class="form-control form-control-sm is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.email.errors %}
+                                    {% for error in form.username.errors %}
                                         <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
                             {% else %}
-                                {{ form.email(class="form-control form-control-sm") }}
+                                {{ form.username(class="form-control form-control-sm") }}
                             {% endif %}
                         </div>
                         <div class="form-group">
@@ -54,7 +54,7 @@
             </div>
             <div class="border-top pt-3">
                 <small class="text-muted">
-                    Need An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up Now</a>
+                    Need An Account? <a class="ml-2" href="{{ url_for('users.new_user') }}">Sign Up Now</a>
                 </small>
             </div>
         </div>

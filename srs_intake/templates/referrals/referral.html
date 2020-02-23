@@ -15,17 +15,17 @@
                         <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Facility Info</legend>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <span class="font-weight-bold pr-3">Facility Name: </span>{{ referral.referral_loc.name }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <span class="font-weight-bold pr-3">Address: </span>{{ referral.referral_loc.address1}} {{ referral.referral_loc.address1}}, {{ referral.referral_loc.city}}, {{ referral.referral_loc.state}} {{ referral.referral_loc.zip_code}}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <span class="font-weight-bold pr-3">Source: </span>{{ referral.referral_loc.source}}
                         </div>
                     </div>
@@ -363,10 +363,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row d-flex justify-content-between">
-                    <div class="form-group d-flex justify-content-start">
-                        <button type="button" class="btn btn-outline-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                <div class="form-group">
+                    <div class="form-row">
+                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Referral Status</legend>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <span class="font-weight-bold pr-3">Current Status: </span>{{ referral.referral_status.capitalize() }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row d-flex justify-content-between">
+                    {% if user.role == 'admin' %}
+                        <div class="form-group d-flex justify-content-start">
+                            <button type="button" class="btn btn-outline-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-success btn-sm m-1" data-toggle="modal" data-target="#completeModal">Complete Referral</a>
+                        </div>
+                    {% endif %}
                     <div class="form-group d-flex justify-content-end">
                         <a class="btn btn-outline-secondary btn-sm m-1" href="{{ url_for('referrals.update_referral',referral_id=referral.id) }}">Update</a>
                     </div>
@@ -374,7 +389,38 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Complete Modal -->
+    <div class="container">
+        <div class="modal fade row" id="completeModal" tabindex="-1" role="dialog" aria-labelledby="completeModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center text-white bg-dark rounded shadow-sm">
+                        <div class="lh-100">
+                            <h5 class="lh-100">
+                                Are you finished importing this referral?
+                            </h5>
+                            <small class="text-muted">
+                                (This will send a completion email to the facility)
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer form-row d-flex justify-content-between">
+                        <div class="form-group d-flex justify-content-start">
+                            <form action="{{ url_for('referrals.referral_complete',referral_id=referral.id) }}" method="POST">
+                                <input type="submit" class="btn btn-outline-success" value="Complete"></button>
+                            </form>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal -->
     <div class="container">
         <div class="modal fade row" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

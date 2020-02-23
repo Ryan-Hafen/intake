@@ -19,14 +19,14 @@ def new_facility():
         db.session.commit()
         flash('The Facility was created successfully.', 'success')
         return redirect(url_for('main.home'))
-    return render_template('crud_facility.html', title='Create Facility', form=form)
+    return render_template('facilities/crud_facility.html', title='Create Facility', form=form)
 
 
 @facilities.route("/facility/<int:facility_id>")
 # @login_required
 def facility(facility_id):
     facility = Facility.query.get_or_404(facility_id)
-    return render_template('facility.html', title=f"{facility.name}", facility=facility)
+    return render_template('facilities/facility.html', title=f"{facility.name}", facility=facility)
 
 
 @facilities.route("/facility/<int:facility_id>/update", methods=['GET', 'POST'])
@@ -55,7 +55,7 @@ def update_facility(facility_id):
         form.state.data=facility.state
         form.zip_code.data=facility.zip_code
         form.source.data=facility.source
-    return render_template('crud_facility.html', title='Update Facility', form=form)
+    return render_template('facilities/crud_facility.html', title='Update Facility', form=form)
 
 @facilities.route("/facility/<int:facility_id>/delete", methods=['POST'])
 # @login_required

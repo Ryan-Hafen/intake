@@ -1,12 +1,19 @@
 from datetime import datetime
+from flask import url_for, flash, redirect
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from srs_intake import app, db, login_manager
 from flask_login import UserMixin
 
-
+# Validating user login
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# Redirect unauthorized users to Login page.
+@login_manager.unauthorized_handler
+def unauthorized():
+    flash('You must be logged in to view that page.','info')
+    return redirect(url_for('users.login'))  
 
 
 class Facility(db.Model):
@@ -25,7 +32,7 @@ class Facility(db.Model):
         return f"Facility('{self.name}', '{self.city}', '{self.state}')"
 
 
-class User(db.Model,UserMixin):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20), nullable=True)
     lastname = db.Column(db.String(20), nullable=True)
@@ -35,14 +42,18 @@ class User(db.Model,UserMixin):
     role = db.Column(db.String(20), nullable=True)
     username = db.Column(db.String(20), unique=True, nullable=True)
     password = db.Column(db.String(60), nullable=True)
-    password_rest = db.Column(db.Boolean, nullable=True, default=True)
+    password_reset_required = db.Column(db.Boolean, nullable=True, default=True)
+    password_last_reset = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     facility_id = db.Column(db.Integer, db.ForeignKey('facility.id'), nullable=True)
     facility = db.relationship('Facility', backref='submitter', lazy=True)
 
+
+    # get reset token
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
+    # Verify email reset token
     @staticmethod
     def verify_reset_token(token):
         s = Serializer(app.config['SECRET_KEY'])
@@ -58,7 +69,7 @@ class User(db.Model,UserMixin):
 
 class Referral(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # referral_status = db.Column(db.String(20), nullable=True, default='new')
+    referral_status = db.Column(db.String(20), nullable=True, default='new')
     firstname = db.Column(db.String(20), nullable=True)
     lastname = db.Column(db.String(20), nullable=True)
     ssn = db.Column(db.String(120), nullable=True)

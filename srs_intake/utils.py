@@ -1,10 +1,22 @@
 import os
 import secrets
+import phonenumbers
 from flask import url_for, current_app
 from flask_mail import Message
 from srs_intake import mail
 
 
+
+def send_new_account_email(user):
+    token = user.get_reset_token()
+    msg = Message('An account has been created', 
+                   sender='noreply@sacrehabsolutions.com', 
+                   recipients=[user.email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('users.reset_token',token=token,_external=True)}
+
+'''
+    mail.send(msg)
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -16,7 +28,27 @@ def send_reset_email(user):
 
 If you did not request a password reset please ignore this email.
 '''
+    mail.send(msg)    
+
+
+def send_new_referral_email(referral, s_email):
+    msg = Message('New Patient Referral', 
+                   sender=s_email, 
+                   recipients=['ryan.hafen@icloud.com'])
+    msg.body = f'''To view the referal, please visit the following link:
+{url_for('referrals.referral',referral_id=referral.id,_external=True)}
+'''
     mail.send(msg)
+
+
+def send_completed_referral_email(referral, r_email):
+    msg = Message(f'The referral for {referral.firstname} {referral.lastname} has been completed', 
+                   sender='noreply@sacrehabsolutions.com', 
+                   recipients=[r_email])
+    msg.body = f'''To view the referal, please visit the following link:
+{url_for('referrals.referral',referral_id=referral.id,_external=True)}
+'''
+    mail.send(msg)  
 
 
 def validate_phone(form, field):
