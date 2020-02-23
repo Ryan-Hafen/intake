@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, Blu
 from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import db
 from srs_intake.models import User, Referral
-from srs_intake.forms import RegistrationForm
+from srs_intake.referrals.forms import RegistrationForm
 
 referrals = Blueprint('referrals', __name__)
 

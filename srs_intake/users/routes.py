@@ -2,7 +2,7 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import db, bcrypt
-from srs_intake.forms import RegistrationForm, LoginForm, UserForm, AccountForm, RequestResetForm, ResetPasswordForm
+from srs_intake.users.forms import RegistrationForm, LoginForm, UserForm, AccountForm, RequestResetForm, ResetPasswordForm
 from srs_intake.models import User
 from srs_intake.utils import send_reset_email
 
