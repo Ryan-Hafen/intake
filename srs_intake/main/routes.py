@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint
-from flaskblog.models import Facility
+from srs_intake.models import Facility
 
 main = Blueprint('main', __name__)
 

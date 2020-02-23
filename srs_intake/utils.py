@@ -12,7 +12,7 @@ def send_reset_email(user):
                    sender='noreply@sacrehabsolutions.com', 
                    recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token',token=token,_external=True)}
+{url_for('users.reset_token',token=token,_external=True)}
 
 If you did not request a password reset please ignore this email.
 '''

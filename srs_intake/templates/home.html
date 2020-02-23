@@ -51,7 +51,7 @@
                 <tbody>
                   {% for referral in facility.loc_ref %}
                     <tr>
-                      <td><a href="{{ url_for('referral', referral_id=referral.id)}}">{{ referral.id }}</a></td>
+                      <td><a href="{{ url_for('referrals.referral', referral_id=referral.id)}}">{{ referral.id }}</a></td>
                       <td>{{ referral.firstname }}</td>
                       <td>{{ referral.lastname }}</td>
                       <td>{{ referral.ssn }}</td>

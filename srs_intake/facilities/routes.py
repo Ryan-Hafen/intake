@@ -18,7 +18,7 @@ def new_facility():
         db.session.add(facility)
         db.session.commit()
         flash('The Facility was created successfully.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('main.home'))
     return render_template('crud_facility.html', title='Create Facility', form=form)
 
 
@@ -46,7 +46,7 @@ def update_facility(facility_id):
         facility.source=form.source.data
         db.session.commit()
         flash('The Facility was updated successfully.', 'success')
-        return redirect(url_for('facility',facility_id=facility_id))
+        return redirect(url_for('facilities.facility',facility_id=facility_id))
     elif request.method == 'GET':
         form.name.data=facility.name
         form.address1.data=facility.address1
@@ -66,4 +66,4 @@ def delete_facility(facility_id):
     db.session.delete(facility)
     db.session.commit()
     flash('The Facility was deleted successfully.', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))

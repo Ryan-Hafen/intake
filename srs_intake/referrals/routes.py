@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, Blu
 from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import db
 from srs_intake.models import User, Referral
-from srs_intake.referrals.forms import RegistrationForm
+from srs_intake.referrals.forms import ReferralForm
 
 referrals = Blueprint('referrals', __name__)
 
@@ -42,7 +42,7 @@ def new_referral():
         db.session.add(referral)
         db.session.commit()
         flash('The Referral was submitted successfully.', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     return render_template('crud_referral.html', title='Create Referral', form=form)
 
 
@@ -116,7 +116,7 @@ def update_referral(referral_id):
         referral.med_zip_code=form.med_zip_code.data
         db.session.commit()
         flash('The Referral was updated successfully.', 'success')
-        return redirect(url_for('referral',referral_id=referral_id))
+        return redirect(url_for('referrals.referral',referral_id=referral_id))
     elif request.method == 'GET':
         form.firstname.data=referral.firstname
         form.lastname.data=referral.lastname
@@ -182,4 +182,4 @@ def delete_referral(referral_id):
     db.session.delete(referral)
     db.session.commit()
     flash('The Referral was deleted successfully.', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('main.home'))
