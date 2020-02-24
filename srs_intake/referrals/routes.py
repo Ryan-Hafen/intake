@@ -113,7 +113,7 @@ def delete_referral(referral_id):
 def update_referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     user = User.query.get(current_user.id)
-    if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
+    if referral.facility_id != user.facility_id and current_user.role != 'admin':
         abort(403)
     form = ReferralForm()
     if form.validate_on_submit():
