@@ -34,7 +34,7 @@ If you did not request a password reset please ignore this email.
 def send_new_referral_email(referral, s_email):
     msg = Message('New Patient Referral', 
                    sender=s_email, 
-                   recipients=['ryan.hafen@icloud.com'])
+                   recipients=['intake@sacrehabsolutions.com'])
     msg.body = f'''To view the referal, please visit the following link:
 {url_for('referrals.referral',referral_id=referral.id,_external=True)}
 '''
