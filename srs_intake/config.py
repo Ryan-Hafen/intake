@@ -4,8 +4,8 @@ import json
 # with open('/etc/config/json') as config_file:                                                                                   
     # config = json.load(config_file)
     
- with open('C;/Users/ryan/Desktop/Web_apps/config.json') as config_file:                                                                                   
-     config = json.load(config_file)    
+with open('C:/Users/ryan/Desktop/Web_apps/config.json') as config_file:                                                                                   
+    config = json.load(config_file)    
 
 class Config:
     SECRET_KEY = config.get('SECRET_KEY')
