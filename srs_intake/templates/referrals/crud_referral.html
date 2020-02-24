@@ -182,7 +182,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         {{ form.medicare.label(class="form-control-label") }}
                         {% if form.medicare.errors %}
                             {{ form.medicare(class="form-control form-control-sm is-invalid") }}
@@ -195,7 +195,7 @@
                             {{ form.medicare(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         {{ form.secondary.label(class="form-control-label") }}
                         {% if form.secondary.errors %}
                             {{ form.secondary(class="form-control form-control-sm is-invalid") }}
@@ -206,6 +206,19 @@
                             </div>
                         {% else %}
                             {{ form.secondary(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form.discharge_date.label(class="form-control-label") }}
+                        {% if form.discharge_date.errors %}
+                            {{ form.discharge_date(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.discharge_date.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.discharge_date(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
                 </div>

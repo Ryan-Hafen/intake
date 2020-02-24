@@ -1,6 +1,6 @@
 import phonenumbers
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, SelectField, TextAreaField, RadioField, SubmitField
+from wtforms import StringField, BooleanField, SelectField, TextAreaField, RadioField, SubmitField, PasswordField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email
 from srs_intake.utils import validate_phone
@@ -13,9 +13,9 @@ med_type_list = [('physician','Physician'),('np','NP'),('pa','PA')]
 class ReferralForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
-    ssn = StringField('SSN', validators=[DataRequired(), Length(min=2, max=20)])
-    phone = StringField('Phone')
-    email = StringField('Email')
+    ssn = PasswordField('SSN', validators=[DataRequired(), Length(min=11, max=11)], render_kw={"placeholder": "111-22-3333","pattern": "[0-9]{3}-[0-9]{2}-[0-9]{4}"})
+    phone = StringField('Phone', validators=[DataRequired(), Length(min=12, max=12)], render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
+    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
     dob = DateField('Date of Birth')
     poa = StringField('P.O.A')
     contact = StringField('Contact')
@@ -24,7 +24,8 @@ class ReferralForm(FlaskForm):
     state = SelectField('State',choices=state_list,default='CA')
     zip_code = StringField('Zip Code')
     medicare = StringField('Medicare', validators=[DataRequired(), Length(min=2, max=20)])
-    secondary = StringField('Secondary', validators=[DataRequired(), Length(min=2, max=20)])
+    secondary = StringField('Secondary Insurance')
+    discharge_date = DateField('Discharge Date')
     notes = TextAreaField('Diagnosis / Reason for referral / Additional notes')
     disc_slp = BooleanField('SLP Speech - Language Pathology')
     disc_ot = BooleanField('OT Occupational Therapy')
@@ -52,16 +53,16 @@ class ReferralForm(FlaskForm):
     treat_gait = BooleanField('Gait/Endurance Training')
     treat_other = BooleanField('Other')
     treat_other_desc = StringField('Other Description',default='')
-    med_type = RadioField(choices=med_type_list)
-    med_firstname = StringField('First Name')
-    med_lastname = StringField('Last Name')
-    med_npi = StringField('NPI')
-    med_phone = StringField('Phone')
-    med_fax = StringField('Fax')
-    med_email = StringField('Email')
-    med_address1 = StringField('Address 1')
+    med_type = RadioField(choices=med_type_list,validators=[DataRequired()])
+    med_firstname = StringField('First Name',validators=[DataRequired()])
+    med_lastname = StringField('Last Name',validators=[DataRequired()])
+    med_npi = StringField('NPI',validators=[DataRequired()])
+    med_phone = StringField('Phone', validators=[DataRequired(), Length(min=12, max=12)], render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
+    med_fax = StringField('Fax', render_kw={"placeholder": "555-555-5555"})
+    med_email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
+    med_address1 = StringField('Address 1',validators=[DataRequired()])
     med_address2 = StringField('Address 2')
-    med_city = StringField('City')
-    med_state = SelectField('State',choices=state_list,default='CA')
-    med_zip_code = StringField('Zip Code')
+    med_city = StringField('City',validators=[DataRequired()])
+    med_state = SelectField('State',choices=state_list,default='CA',validators=[DataRequired()])
+    med_zip_code = StringField('Zip Code',validators=[DataRequired()])
     submit = SubmitField('Save')

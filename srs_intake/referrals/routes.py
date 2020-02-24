@@ -36,7 +36,7 @@ def new_referral():
                            , poa=form.poa.data, contact=form.contact.data
                            , poa_address1=form.poa_address1.data
                            , city=form.city.data, state=form.state.data, zip_code=form.zip_code.data
-                           , medicare=form.medicare.data, secondary=form.secondary.data
+                           , medicare=form.medicare.data, secondary=form.secondary.data, discharge_date=form.discharge_date.data
                            , notes=form.notes.data
                            , disc_slp=form.disc_slp.data, disc_ot=form.disc_ot.data, disc_pt=form.disc_pt.data
                            , treat_oral=form.treat_oral.data, treat_speech=form.treat_speech.data, treat_cognitive=form.treat_cognitive.data
@@ -131,6 +131,7 @@ def update_referral(referral_id):
         referral.zip_code=form.zip_code.data
         referral.medicare=form.medicare.data
         referral.secondary=form.secondary.data
+        referral.discharge_date=form.discharge_date.data
         referral.notes=form.notes.data
         referral.disc_slp=form.disc_slp.data
         referral.disc_ot=form.disc_ot.data
@@ -188,6 +189,7 @@ def update_referral(referral_id):
         form.zip_code.data=referral.zip_code
         form.medicare.data=referral.medicare
         form.secondary.data=referral.secondary
+        form.discharge_date.data=referral.discharge_date
         form.notes.data=referral.notes
         form.disc_slp.data=referral.disc_slp
         form.disc_ot.data=referral.disc_ot
