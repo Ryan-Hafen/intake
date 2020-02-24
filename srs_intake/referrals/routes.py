@@ -69,11 +69,12 @@ def new_referral():
 @login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
+    submitter = User.query.get(referral.user_id)
     user = User.query.get(current_user.id)
     if referral.facility_id == current_user.facility_id:
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter)
     elif current_user.role == 'admin':
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter)
     else:
         abort(403)
 
