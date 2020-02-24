@@ -48,6 +48,9 @@
                             </div>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>
+                    {% if current_user.is_authenticated and current_user.role == 'facility' %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('referrals.new_referral') }}">New Referral</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
