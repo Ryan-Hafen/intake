@@ -18,15 +18,7 @@ class UserForm(FlaskForm):
     fax = StringField('Fax',render_kw={"placeholder": "555-555-5555"})
     role = SelectField('Role', choices=roles_list)
     facility_id = SelectField('Facility', coerce=int, choices=[(i.id, i.name) for i in facilities_list])
-    # username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    # password = PasswordField('Password', validators=[DataRequired()])
-    # confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Save')
-
-    # def validate_username(self, username):
-    #     user = User.query.filter_by(username=username.data).first()
-    #     if user:
-    #         raise ValidationError('That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -43,11 +35,6 @@ class UpdateUserForm(FlaskForm):
     role = SelectField('Role', choices=roles_list)
     facility_id = SelectField('Facility', coerce=int, choices=[(i.id, i.name) for i in facilities_list])
     submit = SubmitField('Save')
-
-    # def validate_username(self, username):
-    #     user = User.query.filter_by(username=username.data).first()
-    #     if user:
-    #         raise ValidationError('That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
