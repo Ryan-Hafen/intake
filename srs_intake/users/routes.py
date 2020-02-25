@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import app, db, bcrypt
 from srs_intake.models import User, Referral, Facility
 from srs_intake.users.forms import LoginForm, UserForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
-from srs_intake.utils import send_reset_email
+from srs_intake.utils import send_reset_email, send_new_account_email
 
 users = Blueprint('users', __name__)
 

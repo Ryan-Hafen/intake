@@ -12,7 +12,7 @@ def send_new_account_email(user):
     msg = Message('An account has been created for you to user SacRehabSolutions.app.', 
                    sender='noreply@sacrehabsolutions.com', 
                    recipients=[user.email])
-    msg.body = f'''Please reset your password by clicking on the link:
+    msg.body = f'''Please use your email ({user.email}) to reset your password by clicking on the link below.
 {url_for('users.reset_token',token=token,_external=True)}
 
 '''

@@ -121,7 +121,7 @@ class Referral(db.Model):
     med_email = db.Column(db.String(120), nullable=True)
     med_phone = db.Column(db.String(20), nullable=True)
     med_fax = db.Column(db.String(20), nullable=True)
-    referral_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # referral_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     facility_id = db.Column(db.Integer, db.ForeignKey('facility.id'), nullable=True)
     users = db.relationship('User', backref='user_ref', lazy=True)
