@@ -1,7 +1,7 @@
 
 from flask import render_template, url_for, flash, redirect, request, abort, session, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from srs_intake import db, bcrypt
+from srs_intake import app, db, bcrypt
 from srs_intake.models import User, Referral, Facility
 from srs_intake.users.forms import LoginForm, UserForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
 from srs_intake.utils import send_reset_email
@@ -25,10 +25,11 @@ def list_users():
 def new_user():
     form = UserForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
+        send_new_account_email(user)
         flash('The User was created successfully.', 'success')
         return redirect(url_for('users.login'))
     return render_template('users/create_user.html', title='Create User', form=form)
@@ -79,7 +80,7 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     flash('The User was deleted successfully.', 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('users.list_users'))
 
 
 @users.route("/login", methods=['GET', 'POST'])
@@ -88,13 +89,13 @@ def login():
         return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
-            flash('Login Unsuccessful. Please check username and password.', 'danger')
+            flash('Login Unsuccessful. Please check email and password.', 'danger')
     return render_template('users/login.html', title='Login', form=form)
 
 
@@ -110,7 +111,7 @@ def reset_request():
         return redirect(url_for('main.home'))
     form = RequestResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('users.login'))

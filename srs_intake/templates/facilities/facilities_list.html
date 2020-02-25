@@ -14,8 +14,9 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Zip Code</th>
                         <th scope="col">Source</th>
                     </tr>
                 </thead>
@@ -24,8 +25,9 @@
                         <tr>
                             <th scope="col"><a href="{{ url_for('facilities.facility', facility_id=facility.id)}}">{{ facility.name }}</a></th>
                             <td>{{ facility.address1}} {{ facility.address2}}</td>
-                            <td>{{ facility.submitter.phone }}</td>
-                            <td>{{ facility.submitter.email }}</td>
+                            <td>{{ facility.city }}</td>
+                            <td>{{ facility.state }}</td>
+                            <td>{{ facility.zip_code }}</td>
                             <td>{{ facility.source }}</td>
                         </tr>
                     {% endfor %}

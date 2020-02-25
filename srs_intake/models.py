@@ -40,10 +40,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=True)
     fax = db.Column(db.String(20), nullable=True)
     role = db.Column(db.String(20), nullable=True)
-    username = db.Column(db.String(20), unique=True, nullable=True)
     password = db.Column(db.String(60), nullable=True)
-    password_reset_required = db.Column(db.Boolean, nullable=True, default=True)
-    password_last_reset = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
     facility_id = db.Column(db.Integer, db.ForeignKey('facility.id'), nullable=True)
     facility = db.relationship('Facility', backref='submitter', lazy=True)
 
@@ -64,7 +61,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', {self.role}', {self.firstname}', '{self.lastname}')"    
+        return f"User('{self.email}', {self.role}', {self.firstname}', '{self.lastname}')"    
 
 
 class Referral(db.Model):
@@ -124,6 +121,7 @@ class Referral(db.Model):
     med_email = db.Column(db.String(120), nullable=True)
     med_phone = db.Column(db.String(20), nullable=True)
     med_fax = db.Column(db.String(20), nullable=True)
+    referral_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     facility_id = db.Column(db.Integer, db.ForeignKey('facility.id'), nullable=True)
     users = db.relationship('User', backref='user_ref', lazy=True)

@@ -9,10 +9,10 @@ from srs_intake import mail
 
 def send_new_account_email(user):
     token = user.get_reset_token()
-    msg = Message('An account has been created', 
+    msg = Message('An account has been created for you to user SacRehabSolutions.app.', 
                    sender='noreply@sacrehabsolutions.com', 
                    recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
+    msg.body = f'''Please reset your password by clicking on the link:
 {url_for('users.reset_token',token=token,_external=True)}
 
 '''
