@@ -100,8 +100,8 @@ def referral_complete(referral_id):
 @login_required
 def delete_referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
-    # if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
-    #     abort(403)
+    if current_user.role != 'admin':
+        abort(403)
     db.session.delete(referral)
     db.session.commit()
     flash('The Referral was deleted successfully.', 'success')

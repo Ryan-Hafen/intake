@@ -18,7 +18,7 @@ def unauthorized():
 
 class Facility(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=True)
+    name = db.Column(db.String(50), nullable=True)
     address1 = db.Column(db.String(120), nullable=True)
     address2 = db.Column(db.String(120), nullable=True)
     city = db.Column(db.String(20), nullable=True)
