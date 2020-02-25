@@ -8,7 +8,7 @@ from srs_intake import mail
 
 
 def send_new_account_email(user):
-    token = user.get_reset_token()
+    token = user.get_new_user_token()
     msg = Message('An account has been created for you to user SacRehabSolutions.app.', 
                    sender='noreply@sacrehabsolutions.com', 
                    recipients=[user.email])

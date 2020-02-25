@@ -50,6 +50,11 @@ class User(db.Model, UserMixin):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
+        # get reset token
+    def get_new_user_token(self, expires_sec=86400):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
     # Verify email reset token
     @staticmethod
     def verify_reset_token(token):
