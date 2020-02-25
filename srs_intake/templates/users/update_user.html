@@ -41,7 +41,20 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-sm is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-4">
                         {{ form.phone.label(class="form-control-label") }}
                         {% if form.phone.errors %}
                             {{ form.phone(class="form-control form-control-sm is-invalid") }}
@@ -54,7 +67,7 @@
                             {{ form.phone(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         {{ form.fax.label(class="form-control-label") }}
                         {% if form.fax.errors %}
                             {{ form.fax(class="form-control form-control-sm is-invalid") }}

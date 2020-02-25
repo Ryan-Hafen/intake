@@ -40,11 +40,17 @@
                     {% if current_user.is_authenticated and current_user.role == 'admin' %}
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('referrals.new_referral') }}">New Referral</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ url_for('facilities.new_facility') }}">New Facility</a>
+                                <a class="dropdown-item" href="{{ url_for('users.list_users') }}">Users</a>
                                 <a class="dropdown-item" href="{{ url_for('users.new_user') }}">New User</a>
-                                
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facilities</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url_for('facilities.list_facilities') }}">Facilities</a>
+                                <a class="dropdown-item" href="{{ url_for('facilities.new_facility') }}">New Facility</a>
                             </div>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>

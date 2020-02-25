@@ -3,12 +3,21 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from flask_login import login_user, current_user, logout_user, login_required
 from srs_intake import db, bcrypt
 from srs_intake.models import User, Referral, Facility
-from srs_intake.users.forms import RegistrationForm, LoginForm, UserForm, RequestResetForm, ResetPasswordForm
+from srs_intake.users.forms import LoginForm, UserForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
 from srs_intake.utils import send_reset_email
 
 users = Blueprint('users', __name__)
 
 
+@users.route("/user/list")
+@login_required
+def list_users():
+    user = User.query.get(current_user.id)
+    if user.role == 'admin':      
+        users = User.query.all()
+        return render_template('users/users_list.html', title="Users", users=users)
+    else:
+        abort(403)
 
 
 @users.route("/user/new", methods=['GET', 'POST'])
@@ -29,14 +38,43 @@ def new_user():
 @login_required
 def user(user_id):
     user = User.query.get_or_404(user_id)
-    return render_template('users/user.html', title=f"{user.firstname} {user.lastname}", user=user)
+    return render_template('users/user.html', title="User Info", user=user)
+
+
+@users.route("/user/<int:user_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if current_user.role != 'admin':
+         abort(403)
+    form = UpdateUserForm()
+    if request.method == 'POST':
+        user.firstname=form.firstname.data
+        user.lastname=form.lastname.data
+        user.email=form.email.data
+        user.phone=form.phone.data
+        user.fax=form.fax.data
+        user.role=form.role.data
+        user.facility_id=form.facility_id.data
+        db.session.commit()
+        flash('The User was updated successfully.', 'success')
+        return redirect(url_for('users.user',user_id=user.id))
+    elif request.method == 'GET':
+        form.firstname.data=user.firstname
+        form.lastname.data=user.lastname
+        form.email.data=user.email
+        form.phone.data=user.phone
+        form.fax.data=user.fax
+        form.role.data=user.role
+        form.facility_id.data=user.facility_id
+    return render_template('users/update_user.html', title='Update User', form=form)
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])
 @login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
-    if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
+    if current_user.role != 'admin':
         abort(403)
     db.session.delete(user)
     db.session.commit()
@@ -54,10 +92,6 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            # is_safe_url should check if the url is safe for redirects.
-            # See http://flask.pocoo.org/snippets/62/ for an example.
-            # if not is_safe_url(next):
-            #     return flask.abort(400)
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check username and password.', 'danger')
@@ -98,64 +132,4 @@ def reset_token(token):
         db.session.commit()
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
-    return render_template('users/reset_token.html', title='Reset Password', form=form)  
-
-
-# @users.route("/account", methods=['GET', 'POST'])
-# @login_required
-# def account():
-#     form = AccountForm()
-#     if form.validate_on_submit():
-#         current_user.firstname = form.firstname.data
-#         current_user.lastname = form.lastname.data
-#         current_user.email = form.email.data
-#         current_user.phone = form.phone.data
-#         current_user.fax = form.fax.data
-#         current_user.email = form.email.data
-#         db.session.commit()
-#         flash('Your account has been updated!', 'success')
-#         return redirect(url_for('users.account'))
-#     elif request.method == 'GET':
-#         form.firstname.data=current_user.firstname
-#         form.lastname.data=current_user.lastname
-#         form.email.data=current_user.email
-#         form.phone.data=current_user.phone
-#         form.fax.data=current_user.fax
-#         form.email.data=current_user.email
-#     return render_template('users/account.html', title='Update Account', form=form)
-
-
-# @users.route("/user/<int:user_id>/update", methods=['GET', 'POST'])
-# # @login_required
-# def update_user(user_id):
-#     user = User.query.get_or_404(user_id)
-#     # if referral.facility_id != current_user.facility_id or current_user.role != 'admin':
-#     #     abort(403)
-#     form = UserForm()
-#     if form.validate_on_submit():
-#         current_user.firstname = form.firstname.data
-#         current_user.lastname = form.lastname.data
-#         current_user.phone = form.phone.data
-#         current_user.fax = form.fax.data
-#         db.session.commit()
-#         flash('The User was updated successfully.', 'success')
-#         return redirect(url_for('users.user',user_id=user_id))
-#     elif request.method == 'GET':
-#         form.firstname.data=current_user.firstname
-#         form.lastname.data=current_user.lastname
-#         form.phone.data=current_user.phone
-#         form.fax.data=current_user.fax
-#     return render_template('users/update_user.html', title='Update User', form=form)
-
-# @users.route("/register", methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.home'))
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, username=form.username.data, password=hashed_password)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash('Your account has been created! You are now able to log in', 'success')
-#         return redirect(url_for('users.login'))
-#     return render_template('users/register.html', title='Register', form=form)
+    return render_template('users/reset_token.html', title='Reset Password', form=form) 

@@ -15,10 +15,10 @@ referrals = Blueprint('referrals', __name__)
 def list_referrals():
     user = User.query.get(current_user.id)
     if user.role == 'facility':
-        referrals = referrals = Referral.query.filter(and_(Referral.referral_status != 'complete', Referral.facility_id == user.facility_id)).all()
+        referrals = Referral.query.filter(and_(Referral.referral_status != 'complete', Referral.facility_id == user.facility_id)).all()
         return render_template('referrals/referral_list.html', title="Referrals", referrals=referrals)
     elif user.role == 'admin':      
-        referrals = referrals = Referral.query.filter(Referral.referral_status != 'complete').all()
+        referrals = Referral.query.filter(Referral.referral_status != 'complete').all()
         return render_template('referrals/referral_list.html', title="Referrals", referrals=referrals)
     else:
         abort(403)

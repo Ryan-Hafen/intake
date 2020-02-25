@@ -38,6 +38,29 @@
                         <a class="btn btn-outline-secondary btn-sm m-1" href="{{ url_for('facilities.update_facility',facility_id=facility.id) }}">Update</a>
                     </div>
                 </div>
+                <div class="form-row">
+                    <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Users</legend>
+                </div>
+                <table Class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Fax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in facility.submitter %}
+                        <tr>
+                            <th scope="col"><a href="{{ url_for('users.user', user_id=user.id)}}">{{ user.firstname }} {{ user.lastname }}</a></th>
+                            <td>{{ user.email}}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.fax }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

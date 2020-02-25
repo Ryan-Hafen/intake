@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm">
+    <div class="lh-100">
+        <h5 class="lh-100">
+            {{ title }}
+        </h5>
+    </div>
+</div>
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <div class="card-body table-responsive-md" >
+            <table Class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facility in facilities %}
+                        <tr>
+                            <th scope="col"><a href="{{ url_for('facilities.facility', facility_id=facility.id)}}">{{ facility.name }}</a></th>
+                            <td>{{ facility.address1}} {{ facility.address2}}</td>
+                            <td>{{ facility.submitter.phone }}</td>
+                            <td>{{ facility.submitter.email }}</td>
+                            <td>{{ facility.source }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
