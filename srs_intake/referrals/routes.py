@@ -30,13 +30,12 @@ def new_referral():
     form = ReferralForm()
     if form.validate_on_submit():
         user = User.query.get(current_user.id)
-        fac = user.user_loc
-        referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data, ssn=form.ssn.data
+        referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data, ssn=Referral.encrypt_data(form.ssn.data)
                            , phone=form.phone.data, email=form.email.data, dob=form.dob.data
                            , poa=form.poa.data, contact=form.contact.data
                            , poa_address1=form.poa_address1.data
                            , city=form.city.data, state=form.state.data, zip_code=form.zip_code.data
-                           , medicare=form.medicare.data, secondary=form.secondary.data, discharge_date=form.discharge_date.data
+                           , medicare=Referral.encrypt_data(form.medicare.data), secondary=Referral.encrypt_data(form.secondary.data), discharge_date=form.discharge_date.data
                            , notes=form.notes.data
                            , disc_slp=form.disc_slp.data, disc_ot=form.disc_ot.data, disc_pt=form.disc_pt.data
                            , treat_oral=form.treat_oral.data, treat_speech=form.treat_speech.data, treat_cognitive=form.treat_cognitive.data
@@ -54,7 +53,7 @@ def new_referral():
                            , med_address2=form.med_address2.data
                            , med_city=form.med_city.data, med_state=form.med_state.data, med_zip_code=form.med_zip_code.data
                            , user_id=user.id
-                           , facility_id=fac.id)
+                           , facility_id=user.facility_id)
         db.session.add(referral)
         db.session.commit()
         referral = Referral.query.get(referral.id)
@@ -69,10 +68,16 @@ def new_referral():
 @login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
+    ssn = Referral.query.filter_by(id=referral_id).with_entities(Referral.ssn).first()
+    d_ssn = Referral.decrypt_data(ssn)
+    # d_medicare = Referral.decrypt_data(Referral.query.filter_by(id=referral_id).with_entities(Referral.medicare).first())
+    # d_secondary = Referral.decrypt_data(Referral.query.filter_by(id=referral_id).with_entities(Referral.secondary).first())
     submitter = User.query.get(referral.user_id)
     user = User.query.get(current_user.id)
     if referral.facility_id == current_user.facility_id:
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn
+        # , d_medicare=d_medicare, d_secondary=d_secondary
+        )
     elif current_user.role == 'admin':
         return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter)
     else:

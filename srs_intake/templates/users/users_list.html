@@ -28,7 +28,7 @@
                             <td>{{ user.phone }}</td>
                             <td>{{ user.fax }}</td>
                             <td>{{ user.role }}</td>
-                            <td scope="col"><a href="{{ url_for('facilities.facility', facility_id=user.facility_id)}}">{{ user.user_loc.name }}</a></td>
+                            <td scope="col"><a href="{{ url_for('facilities.facility', facility_id=user.facility_id)}}">{{ user.facility_user.name }}</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

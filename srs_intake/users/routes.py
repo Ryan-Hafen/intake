@@ -26,7 +26,7 @@ def new_user():
     form = UserForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data, phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, password=hashed_password)
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, facility_id=form.facility_id.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         send_new_account_email(user)
@@ -52,7 +52,7 @@ def update_user(user_id):
     if request.method == 'POST':
         user.firstname=form.firstname.data
         user.lastname=form.lastname.data
-        user.email=form.email.data
+        user.email=form.email.data.lower()
         user.phone=form.phone.data
         user.fax=form.fax.data
         user.role=form.role.data
@@ -89,7 +89,7 @@ def login():
         return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data.lower()).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
@@ -111,7 +111,7 @@ def reset_request():
         return redirect(url_for('main.home'))
     form = RequestResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data.lower()).first()
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('users.login'))

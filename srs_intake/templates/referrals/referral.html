@@ -16,12 +16,12 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <span class="font-weight-bold pr-3">Facility Name: </span>{{ referral.referral_loc.name }}
+                            <span class="font-weight-bold pr-3">Facility Name: </span>{{ referral.facility.name }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <span class="font-weight-bold pr-3">Address: </span>{{ referral.referral_loc.address1}} {{ referral.referral_loc.address1}}, {{ referral.referral_loc.city}}, {{ referral.referral_loc.state}} {{ referral.referral_loc.zip_code}}
+                            <span class="font-weight-bold pr-3">Address: </span>{{ referral.facility.address1}} {{ referral.facility.address1}}, {{ referral.facility.city}}, {{ referral.facility.state}} {{ referral.facility.zip_code}}
                         </div>
                     </div>
                     <div class="form-row">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <span class="font-weight-bold pr-3">Source: </span>{{ referral.referral_loc.source}}
+                            <span class="font-weight-bold pr-3">Source: </span>{{ referral.facility.source}}
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <span class="font-weight-bold pr-3">Discharge Date: </span>{{ referral.discharge_date }}
+                            <span class="font-weight-bold pr-3">Discharge Date: </span>{{ referral.discharge_date.strftime('%m/%d/%Y') }}
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in facility.submitter %}
+                        {% for user in facility.user %}
                         <tr>
                             <th scope="col"><a href="{{ url_for('users.user', user_id=user.id)}}">{{ user.firstname }} {{ user.lastname }}</a></th>
                             <td>{{ user.email}}</td>

@@ -24,7 +24,7 @@
                     {% for referral in referrals %}
                         <tr>
                             <th scope="col"><a href="{{ url_for('referrals.referral', referral_id=referral.id)}}">{{ referral.firstname }} {{ referral.lastname }}</a></th>
-                            <td>{{ referral.referral_loc.name}}</td>
+                            <td>{{ referral.facility_ref.name}}</td>
                             <td>{{ referral.phone }}</td>
                             <td>{{ referral.email }}</td>
                             <td>{{ referral.referral_status }}</td>
