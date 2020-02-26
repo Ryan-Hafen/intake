@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import url_for, flash, redirect
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, base64
 from srs_intake import app, db, login_manager
 from flask_login import UserMixin
 
@@ -148,7 +148,7 @@ class Referral(db.Model):
         d = field
         f = Fernet(app.config['ENCRYPT_KEY'])
         decrypted = f.decrypt(d).decode('utf-8')
-        return encrypted
+        return decrypted
          
 
     def __repr__(self):
@@ -168,13 +168,11 @@ def load_db(db):
     # Insert multiple rows via add_all(list_of_instances) and commit
     db.session.add_all([
             User(id=1, firstname='Super', lastname='Admin',email='ryan.hafen@icloud.com',phone='916-472-9612',role='admin',password='password',facility_id=1),
-            User(id=1, firstname='David', lastname='Rogers',email='lamrogers@gmail.com',phone='916-936-2526',role='admin',password='password',facility_id=1)])
+            User(id=2, firstname='David', lastname='Rogers',email='lamrogers@gmail.com',phone='916-936-2526',role='admin',password='password',facility_id=1)])
     db.session.commit()  
 
     db.session.add_all([
-            Referral(id=1,referral_status='new', firstname='Super', lastname='Admin', ssn=Referral.encrypt_data('111-22-3333'),phone='555-555-5555',email='homer@fox.com',
-                 dob=datetime(1948, 5, 12),poa_address1='742 Evergreen Terrace', city='Springfield',state='CA', zip_code='95648',medicare=Referral.encrypt_data('123456789'),
-                 secondary=Referral.encrypt_data('123456789'),discharge_date=datetime(2020, 2, 25),notes='This is a test referral.',referral_date=(2020, 3, 1),user_id=1,facility_id=1)])
+            Referral(id=1,referral_status='new', firstname='Super', lastname='Admin', ssn=Referral.encrypt_data('111-22-3333'),phone='555-555-5555',email='homer@fox.com',dob=datetime(1948, 5, 12),poa_address1='742 Evergreen Terrace', city='Springfield',state='CA', zip_code='95648',medicare=Referral.encrypt_data('123456789'),secondary=Referral.encrypt_data('123456789'),discharge_date=datetime(2020, 2, 25),notes='This is a test referral.',referral_date=(2020, 3, 1),user_id=1,facility_id=1)])
     db.session.commit()      
 
 

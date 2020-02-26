@@ -8,111 +8,111 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="content-section">
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Facility Info</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Facility Info</legend>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Facility Name: </span>{{ referral.facility.name }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Address: </span>{{ referral.facility.address1}} {{ referral.facility.address1}}, {{ referral.facility.city}}, {{ referral.facility.state}} {{ referral.facility.zip_code}}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Phone: </span>{{ submitter.phone}}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Email: </span>{{ submitter.email}}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Source: </span>{{ referral.facility.source}}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Patient Info</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Patient Info</legend>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Name: </span>{{ referral.firstname }} {{ referral.lastname }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <span class="font-weight-bold pr-3">SSN: </span>{{ referral.ssn }}
+                        <div class="form-group col-sm-12">
+                            <span class="font-weight-bold pr-3">SSN: </span>{{ d_ssn }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Phone: </span>{{ referral.phone }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Email: </span>{{ referral.email }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Date of Birth: </span>{{ referral.dob.strftime('%m/%d/%Y') }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">P.O.A.: </span>{{ referral.poa }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Contact #: </span>{{ referral.contact }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">P.O.A. Adress: </span>{{ referral.poa_address1 }}, {{ referral.city }}, {{ referral.state }} {{ referral.zip_code }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <span class="font-weight-bold pr-3">Medicare #: </span>{{ referral.medicare }}
+                        <div class="form-group col-sm-12">
+                            <span class="font-weight-bold pr-3">Medicare #: </span>{{ d_medicare }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <span class="font-weight-bold pr-3">Secondary Insurance #: </span>{{ referral.secondary }}
+                        <div class="form-group col-sm-12">
+                            <span class="font-weight-bold pr-3">Secondary Insurance #: </span>{{ d_secondary }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Discharge Date: </span>{{ referral.discharge_date.strftime('%m/%d/%Y') }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Diagnosis / Reason for referral / Additional notes</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Diagnosis / Reason for referral / Additional notes</legend>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             {{ referral.notes }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Discipline to evaluate &amp; treat</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Discipline to evaluate &amp; treat</legend>
                     </div>
                     <div class="form-row d-flex justify-content-between">
                         <div class="form-check form-check-inline form-group col-sm-3">
@@ -121,7 +121,7 @@
                             {% else %}
                                 <span><i class="far fa-square"></i></span>
                             {% endif %}
-                                <span class="form-check-label pl-2">Treatment of Swallowing Dysfunction/ Oral Function</span>
+                                <span class="form-check-label pl-2">SLP Speech - Language Pathology</span>
                         </div>
                         <div class="form-check form-check-inline form-group col-sm-3">
                             {% if referral.disc_ot %}
@@ -129,7 +129,7 @@
                             {% else %}
                                 <span><i class="far fa-square"></i></span>
                             {% endif %}
-                                <span class="form-check-label pl-2">Treatment of Swallowing Dysfunction/ Oral Function</span>
+                                <span class="form-check-label pl-2">OT Occupational Therapy</span>
                         </div>
                         <div class="form-check form-check-inline form-group col-sm-3">
                             {% if referral.disc_pt %}
@@ -137,12 +137,12 @@
                             {% else %}
                                 <span><i class="far fa-square"></i></span>
                             {% endif %}
-                                <span class="form-check-label pl-2">Treatment of Swallowing Dysfunction/ Oral Function</span>
+                                <span class="form-check-label pl-2">PT Physical Therapy</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-row d-flex justify-content-between">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Evaluate &amp; treat as indicated</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Evaluate &amp; treat as indicated</legend>
                         </div>
                         <div class="form-row d-flex justify-content-between">
                             <div class="form-check form-check-inline form-group col-sm-3">
@@ -340,7 +340,7 @@
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Primary Medical Contact Info</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Primary Medical Contact Info</legend>
                     </div>
                     <div class="form-row">
                         <div class="form-check form-check-inline form-group col-sm-2">
@@ -348,47 +348,47 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Name: </span>{{ referral.med_firstname }} {{ referral.med_lastname }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">NPI: </span>{{ referral.med_npi }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Phone: </span>{{ referral.med_phone }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Fax: </span>{{ referral.med_fax }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Email: </span>{{ referral.med_email }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Address: </span>{{ referral.med_address1 }} {{ referral.med_address2 }}, {{ referral.med_city }}, {{ referral.med_state }} {{ referral.med_zip_code }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Referral Status</legend>
+                        <legend class="col-form-label col-sm-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Referral Status</legend>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Current Status: </span>{{ referral.referral_status.capitalize() }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Referral Date: </span>{{ referral.referral_date.strftime('%m/%d/%Y') }}
                         </div>
                     </div>

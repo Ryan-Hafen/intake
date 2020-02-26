@@ -68,18 +68,16 @@ def new_referral():
 @login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
-    ssn = Referral.query.filter_by(id=referral_id).with_entities(Referral.ssn).first()
-    d_ssn = Referral.decrypt_data(ssn)
-    # d_medicare = Referral.decrypt_data(Referral.query.filter_by(id=referral_id).with_entities(Referral.medicare).first())
-    # d_secondary = Referral.decrypt_data(Referral.query.filter_by(id=referral_id).with_entities(Referral.secondary).first())
+    to_decrypt = Referral.query.filter_by(id=referral_id).with_entities(Referral.ssn,Referral.medicare,Referral.secondary).first()
+    d_ssn = Referral.decrypt_data(to_decrypt.ssn)
+    d_medicare = Referral.decrypt_data(to_decrypt.medicare)
+    d_secondary = Referral.decrypt_data(to_decrypt.secondary)
     submitter = User.query.get(referral.user_id)
     user = User.query.get(current_user.id)
     if referral.facility_id == current_user.facility_id:
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn
-        # , d_medicare=d_medicare, d_secondary=d_secondary
-        )
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn, d_medicare=d_medicare, d_secondary=d_secondary)
     elif current_user.role == 'admin':
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn, d_medicare=d_medicare, d_secondary=d_secondary)
     else:
         abort(403)
 
