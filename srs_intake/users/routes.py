@@ -1,6 +1,6 @@
 
 from flask import render_template, url_for, flash, redirect, request, abort, session, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import login_user, current_user, logout_user, fresh_login_required
 from srs_intake import app, db, bcrypt
 from srs_intake.models import User, Referral, Facility
 from srs_intake.users.forms import LoginForm, UserForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
@@ -10,7 +10,7 @@ users = Blueprint('users', __name__)
 
 
 @users.route("/user/list")
-@login_required
+@fresh_login_required
 def list_users():
     user = User.query.get(current_user.id)
     if user.role == 'admin':      
@@ -21,7 +21,7 @@ def list_users():
 
 
 @users.route("/user/new", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def new_user():
     form = UserForm()
     if form.validate_on_submit():
@@ -36,14 +36,14 @@ def new_user():
 
 
 @users.route("/user/<int:user_id>")
-@login_required
+@fresh_login_required
 def user(user_id):
     user = User.query.get_or_404(user_id)
     return render_template('users/user.html', title="User Info", user=user)
 
 
 @users.route("/user/<int:user_id>/update", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def update_user(user_id):
     user = User.query.get_or_404(user_id)
     if current_user.role != 'admin':
@@ -72,7 +72,7 @@ def update_user(user_id):
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])
-@login_required
+@fresh_login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
     if current_user.role != 'admin':

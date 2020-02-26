@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required
+from flask_login import login_user, current_user, logout_user, fresh_login_required
 from srs_intake import db
 from sqlalchemy import and_, or_
 from srs_intake.models import User, Referral, Facility
@@ -11,7 +11,7 @@ referrals = Blueprint('referrals', __name__)
 # list of referral by facility 
 # list all referral for admin
 @referrals.route("/referral/list")
-@login_required
+@fresh_login_required
 def list_referrals():
     user = User.query.get(current_user.id)
     if user.role == 'facility':
@@ -25,7 +25,7 @@ def list_referrals():
 
 
 @referrals.route("/referral/new", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def new_referral():
     form = ReferralForm()
     if form.validate_on_submit():
@@ -65,7 +65,7 @@ def new_referral():
 
 
 @referrals.route("/referral/<int:referral_id>")
-@login_required
+@fresh_login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     to_decrypt = Referral.query.filter_by(id=referral_id).with_entities(Referral.ssn,Referral.medicare,Referral.secondary).first()
@@ -82,7 +82,7 @@ def referral(referral_id):
         abort(403)
 
 @referrals.route("/referral/<int:referral_id>/complete", methods=['POST'])
-@login_required
+@fresh_login_required
 def referral_complete(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     user = User.query.get(current_user.id)
@@ -100,7 +100,7 @@ def referral_complete(referral_id):
     
 
 @referrals.route("/referral/<int:referral_id>/delete", methods=['POST'])
-@login_required
+@fresh_login_required
 def delete_referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     if current_user.role != 'admin':
@@ -112,7 +112,7 @@ def delete_referral(referral_id):
 
 
 @referrals.route("/referral/<int:referral_id>/update", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def update_referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
     user = User.query.get(current_user.id)

@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
-from flask_login import current_user, login_required
+from flask_login import current_user, fresh_login_required
 from srs_intake import db
 from srs_intake.models import Facility, User, Referral
 from srs_intake.facilities.forms import FacilityForm
@@ -9,7 +9,7 @@ facilities = Blueprint('facilities', __name__)
 
 
 @facilities.route("/facility/list")
-@login_required
+@fresh_login_required
 def list_facilities():
     user = User.query.get(current_user.id)
     if user.role == 'admin':      
@@ -20,7 +20,7 @@ def list_facilities():
 
 
 @facilities.route("/facility/new", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def new_facility():
     form = FacilityForm()
     if form.validate_on_submit():
@@ -33,14 +33,14 @@ def new_facility():
 
 
 @facilities.route("/facility/<int:facility_id>")
-@login_required
+@fresh_login_required
 def facility(facility_id):
     facility = Facility.query.get_or_404(facility_id)
     return render_template('facilities/facility.html', title=f"{facility.name}", facility=facility)
 
 
 @facilities.route("/facility/<int:facility_id>/update", methods=['GET', 'POST'])
-@login_required
+@fresh_login_required
 def update_facility(facility_id):
     facility = Facility.query.get_or_404(facility_id)
     if current_user.role != 'admin':
@@ -68,7 +68,7 @@ def update_facility(facility_id):
     return render_template('facilities/crud_facility.html', title='Update Facility', form=form)
 
 @facilities.route("/facility/<int:facility_id>/delete", methods=['POST'])
-@login_required
+@fresh_login_required
 def delete_facility(facility_id):
     facility = Facility.query.get_or_404(facility_id)
     if current_user.role != 'admin':
