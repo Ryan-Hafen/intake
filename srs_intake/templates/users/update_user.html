@@ -104,9 +104,13 @@
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
-                        {% else %}
-                            {{ form.facility_id(class="form-control form-control-sm") }}
-                        {% endif %}
+                            {% else %}
+                                <select class="form-control form-control-sm" id="facility_id" name="facility_id">
+                                    {% for facility in facilities %}
+                                        <option value="{{ facility.facility_id}}">{{ facility.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
                     </div>
                 </div>
                 <div class="form-row d-flex justify-content-end">
