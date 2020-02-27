@@ -23,6 +23,7 @@ def list_users():
 @users.route("/user/new", methods=['GET', 'POST'])
 @fresh_login_required
 def new_user():
+    facilities = Facility.query.all()
     form = UserForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
@@ -32,7 +33,7 @@ def new_user():
         send_new_account_email(user)
         flash('The User was created successfully.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('users/create_user.html', title='Create User', form=form)
+    return render_template('users/create_user.html', title='Create User', form=form, facilities=facilities)
 
 
 @users.route("/user/<int:user_id>")
@@ -61,6 +62,7 @@ def update_user(user_id):
         flash('The User was updated successfully.', 'success')
         return redirect(url_for('users.user',user_id=user.id))
     elif request.method == 'GET':
+        facilities = Facility.query.all()
         form.firstname.data=user.firstname
         form.lastname.data=user.lastname
         form.email.data=user.email
@@ -68,7 +70,7 @@ def update_user(user_id):
         form.fax.data=user.fax
         form.role.data=user.role
         form.facility_id.data=user.facility_id
-    return render_template('users/update_user.html', title='Update User', form=form)
+    return render_template('users/update_user.html', title='Update User', form=form, facilities=facilities)
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])

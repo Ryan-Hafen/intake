@@ -12,7 +12,7 @@ facilities = Blueprint('facilities', __name__)
 @fresh_login_required
 def list_facilities():
     user = User.query.get(current_user.id)
-    if user.role == 'admin':      
+    if user.role == 'admin':
         facilities = Facility.query.all()
         return render_template('facilities/facilities_list.html', title="Facilities", facilities=facilities)
     else:
@@ -27,6 +27,8 @@ def new_facility():
         facility = Facility(name=form.name.data,address1=form.address1.data, address2=form.address2.data, city=form.city.data, state=form.state.data, zip_code=form.zip_code.data, source=form.source.data)
         db.session.add(facility)
         db.session.commit()
+        db.session.refresh(facility)
+        db.session.close()
         flash('The Facility was created successfully.', 'success')
         return redirect(url_for('main.home'))
     return render_template('facilities/crud_facility.html', title='Create Facility', form=form)
