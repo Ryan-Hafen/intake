@@ -122,7 +122,7 @@ def update_referral(referral_id):
     if form.validate_on_submit():
         referral.firstname=form.firstname.data
         referral.lastname=form.lastname.data
-        referral.ssn=form.ssn.data
+        referral.ssn=Referral.encrypt_data(form.ssn.data)
         referral.phone=form.phone.data
         referral.email=form.email.data
         referral.dob=form.dob.data
@@ -132,8 +132,8 @@ def update_referral(referral_id):
         referral.city=form.city.data
         referral.state=form.state.data
         referral.zip_code=form.zip_code.data
-        referral.medicare=form.medicare.data
-        referral.secondary=form.secondary.data
+        referral.medicare=Referral.encrypt_data(form.medicare.data)
+        referral.secondary=Referral.encrypt_data(form.secondary.data)
         referral.discharge_date=form.discharge_date.data
         referral.notes=form.notes.data
         referral.disc_slp=form.disc_slp.data
@@ -180,7 +180,7 @@ def update_referral(referral_id):
     elif request.method == 'GET':
         form.firstname.data=referral.firstname
         form.lastname.data=referral.lastname
-        form.ssn.data=referral.ssn
+        form.ssn.data=Referral.decrypt_data(referral.ssn)
         form.phone.data=referral.phone
         form.email.data=referral.email
         form.dob.data=referral.dob
@@ -190,8 +190,8 @@ def update_referral(referral_id):
         form.city.data=referral.city
         form.state.data=referral.state
         form.zip_code.data=referral.zip_code
-        form.medicare.data=referral.medicare
-        form.secondary.data=referral.secondary
+        form.medicare.data=referral.Referral.decrypt_data(medicare)
+        form.secondary.data=Referral.decrypt_data(referral.secondary)
         form.discharge_date.data=referral.discharge_date
         form.notes.data=referral.notes
         form.disc_slp.data=referral.disc_slp

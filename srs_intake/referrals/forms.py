@@ -12,7 +12,7 @@ med_type_list = [('physician','Physician'),('np','NP'),('pa','PA')]
 class ReferralForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
-    ssn = PasswordField('SSN', validators=[DataRequired(), Length(min=11, max=11)], render_kw={"placeholder": "111-22-3333","pattern": "[0-9]{3}-[0-9]{2}-[0-9]{4}"})
+    ssn = PasswordField('SSN', validators=[DataRequired(), Length(min=9, max=9)], render_kw={"placeholder": "111223333","pattern": "[0-9]{9}"})
     phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10)], render_kw={"placeholder": "5555555555","pattern": "[0-9]{10}"})
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
     dob = DateField('Date of Birth')
