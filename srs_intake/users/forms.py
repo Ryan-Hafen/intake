@@ -4,7 +4,6 @@ from wtforms.ext.sqlalchemy.orm import QuerySelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from srs_intake.models import Facility, User
-from srs_intake.utils import validate_phone
 
 
 roles_list = [('admin', 'Admin'), ('facility', 'Facility')]
@@ -13,8 +12,8 @@ class UserForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
-    phone = StringField('Phone',render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
-    fax = StringField('Fax',render_kw={"placeholder": "555-555-5555"})
+    phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10)], render_kw={"placeholder": "3334445555","pattern": "[0-9]{10}"})
+    fax = StringField('Fax', validators=[Length(min=0, max=10)], render_kw={"placeholder": "3334445555"})
     role = SelectField('Role', choices=roles_list)
     facility_id = SelectField('Facility', coerce=int)
     submit = SubmitField('Save')
@@ -28,8 +27,8 @@ class UpdateUserForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
-    phone = StringField('Phone',render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
-    fax = StringField('Fax',render_kw={"placeholder": "555-555-5555"})
+    phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10)], render_kw={"placeholder": "3334445555","pattern": "[0-9]{10}"})
+    fax = StringField('Fax', validators=[Length(min=0, max=10)], render_kw={"placeholder": "3334445555"})
     role = SelectField('Role', choices=roles_list)
     facility_id = SelectField('Facility', coerce=int)
     submit = SubmitField('Save')

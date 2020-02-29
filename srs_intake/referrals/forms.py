@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SelectField, TextAreaField, RadioField, SubmitField, PasswordField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email
-from srs_intake.utils import validate_phone
 
 
 state_list = [('AL','Alabama'),('AK','Alaska'),('AZ','Arizona'),('AR','Arkansas'),('CA','California'),('CO','Colorado'),('CT','Connecticut'),('DE','Delaware'),('DC','District Of Columbia'),('FL','Florida'),('GA','Georgia'),('HI','Hawaii'),('ID','Idaho'),('IL','Illinois'),('IN','Indiana'),('IA','Iowa'),('KS','Kansas'),('KY','Kentucky'),('LA','Louisiana'),('ME','Maine'),('MD','Maryland'),('MA','Massachusetts'),('MI','Michigan'),('MN','Minnesota'),('MS','Mississippi'),('MO','Missouri'),('MT','Montana'),('NE','Nebraska'),('NV','Nevada'),('NH','New Hampshire'),('NJ','New Jersey'),('NM','New Mexico'),('NY','New York'),('NC','North Carolina'),('ND','North Dakota'),('OH','Ohio'),('OK','Oklahoma'),('OR','Oregon'),('PA','Pennsylvania'),('RI','Rhode Island'),('SC','South Carolina'),('SD','South Dakota'),('TN','Tennessee'),('TX','Texas'),('UT','Utah'),('VT','Vermont'),('VA','Virginia'),('WA','Washington'),('WV','West Virginia'),('WI','Wisconsin'),('WY','Wyoming')]
@@ -14,7 +13,7 @@ class ReferralForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     lastname = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     ssn = PasswordField('SSN', validators=[DataRequired(), Length(min=11, max=11)], render_kw={"placeholder": "111-22-3333","pattern": "[0-9]{3}-[0-9]{2}-[0-9]{4}"})
-    phone = StringField('Phone', validators=[DataRequired(), Length(min=12, max=12)], render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
+    phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10)], render_kw={"placeholder": "5555555555","pattern": "[0-9]{10}"})
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
     dob = DateField('Date of Birth')
     poa = StringField('P.O.A')
@@ -57,8 +56,8 @@ class ReferralForm(FlaskForm):
     med_firstname = StringField('First Name',validators=[DataRequired()])
     med_lastname = StringField('Last Name',validators=[DataRequired()])
     med_npi = StringField('NPI',validators=[DataRequired()])
-    med_phone = StringField('Phone', validators=[DataRequired(), Length(min=12, max=12)], render_kw={"placeholder": "555-555-5555","pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}"})
-    med_fax = StringField('Fax', render_kw={"placeholder": "555-555-5555"})
+    med_phone = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10)], render_kw={"placeholder": "5555555555","pattern": "[0-9]{10}"})
+    med_fax = StringField('Fax', validators=[Length(min=0, max=10)], render_kw={"placeholder": "3334445555"})
     med_email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
     med_address1 = StringField('Address 1',validators=[DataRequired()])
     med_address2 = StringField('Address 2')

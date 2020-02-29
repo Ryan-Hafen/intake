@@ -1,0 +1,9 @@
+<p>Hello  {{ user.firstname }} {{ user.firstname }},</p>
+<p>We have created an account for you.</p>
+<p>Please click this link: 
+    <a href={{ url_for('users.reset_token', token=token, _external=True) }}>
+        <strong>set your password</strong>
+    </a>.
+</p>
+<p>Best Regards,</p>
+<p>Sacrament Rehab Solutions</p>
