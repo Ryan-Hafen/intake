@@ -190,7 +190,7 @@ def update_referral(referral_id):
         form.city.data=referral.city
         form.state.data=referral.state
         form.zip_code.data=referral.zip_code
-        form.medicare.data=referral.Referral.decrypt_data(medicare)
+        form.medicare.data=Referral.decrypt_data(referral.medicare)
         form.secondary.data=Referral.decrypt_data(referral.secondary)
         form.discharge_date.data=referral.discharge_date
         form.notes.data=referral.notes
