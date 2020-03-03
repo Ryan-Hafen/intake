@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-section">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="font-weight-bold pr-3">Name: </span>{{ user.firstname }} {{ user.lastname }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <span class="font-weight-bold pr-3">Phone: </span>{{ user.phone }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <span class="font-weight-bold pr-3">Fax: </span>{{ user.fax }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="font-weight-bold pr-3">Email: </span>{{ user.email }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="font-weight-bold pr-3">Role: </span>{{ user.role }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <span class="font-weight-bold pr-3">Assigned source: </span>{{ user.source_user.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-start">
+                        <button type="button" class="btn btn-outline-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <a class="btn btn-outline-secondary btn-sm m-1" href="{{ url_for('users.update_user',user_id=user.id) }}">Update</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="container">
+        <div class="modal fade row" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center text-white bg-dark rounded shadow-sm">
+                        <div class="lh-100">
+                            <h5 class="lh-100">
+                                Delete User?
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="modal-footer form-row d-flex justify-content-between">
+                        <div class="form-group d-flex justify-content-start">
+                            <form action="{{ url_for('users.delete_user',user_id=user.id) }}" method="POST">
+                                <input type="submit" class="btn btn-outline-danger" value="Delete"></button>
+                            </form>
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% for source in sources %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-section">
+          <div class="media-body">
+            <div>
+              <p>Source</p>
+              <table>
+                <th>
+                  <td>id</td>
+                  <td>name</td>
+                  <td>address1</td>
+                  <td>address2</td>
+                  <td>city</td>
+                  <td>state</td>
+                  <td>zip_code</td>
+                  <td>source</td>
+                </th>
+                <tr>
+                  <td>{{ source.id }}</td>
+                  <td>{{ source.name }}</td>
+                  <td>{{ source.address1 }}</td>
+                  <td>{{ source.address2 }}</td>
+                  <td>{{ source.city }}</td>
+                  <td>{{ source.state }}</td>
+                  <td>{{ source.zip_code }}</td>
+                  <td>{{ source.source }}</td>
+                </tr>
+            </table>
+              <p>Referrals</p>
+              <table>
+                <thead>
+                  <td>id</td>
+                  <td>firstname</td>
+                  <td>lastname</td>
+                  <td>ssn</td>
+                  <td>med_type</td>
+                  <td>disc_slp</td>
+                  <td>disc_ot</td>
+                  <td>disc_pt</td>
+                </thead>
+                <tbody>
+                  {% for referral in source.loc_ref %}
+                    <tr>
+                      <td><a href="{{ url_for('referrals.referral', referral_id=referral.id)}}">{{ referral.id }}</a></td>
+                      <td>{{ referral.firstname }}</td>
+                      <td>{{ referral.lastname }}</td>
+                      <td>{{ referral.ssn }}</td>
+                      <td>{{ referral.med_type }}</td>
+                      <td>{{ referral.disc_slp }}</td>
+                      <td>{{ referral.disc_ot }}</td>
+                      <td>{{ referral.disc_pt }}</td>
+                      <td>{{ referral.treat_oral }}</td>
+                      <td>{{ referral.treat_speech }}</td>
+                      <td>{{ referral.treat_cognitive }}</td>
+                      <td>{{ referral.treat_caregiver }}</td>
+                      <td>{{ referral.treat_dementia }}</td>
+                      <td>{{ referral.treat_adl }}</td>
+                      <td>{{ referral.treat_safety }}</td>
+                      <td>{{ referral.treat_upper_extremity }}</td>
+                      <td>{{ referral.treat_ther_exercise }}</td>
+                      <td>{{ referral.treat_balance }}</td>
+                      <td>{{ referral.treat_ther_activity }}</td>
+                      <td>{{ referral.treat_coordination }}</td>
+                      <td>{{ referral.treat_transfer }}</td>
+                      <td>{{ referral.treat_range }}</td>
+                      <td>{{ referral.treat_massage }}</td>
+                      <td>{{ referral.treat_pain }}</td>
+                      <td>{{ referral.treat_wheelchair }}</td>
+                      <td>{{ referral.treat_lower_extremity }}</td>
+                      <td>{{ referral.treat_cane }}</td>
+                      <td>{{ referral.treat_postural }}</td>
+                      <td>{{ referral.treat_gait }}</td>
+                      <td>{{ referral.treat_other }}</td>
+                      <td>{{ referral.treat_other_desc }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}

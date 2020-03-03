@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <div class="card-body table-responsive-md" >
+            <table Class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Zip Code</th>
+                        <th scope="col">Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for source in sources %}
+                        <tr>
+                            <th scope="col"><a href="{{ url_for('sources.source', source_id=source.id)}}">{{ source.name }}</a></th>
+                            <td>{{ source.address1}} {{ source.address2}}</td>
+                            <td>{{ source.city }}</td>
+                            <td>{{ source.state }}</td>
+                            <td>{{ source.zip_code }}</td>
+                            <td>{{ source.source }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

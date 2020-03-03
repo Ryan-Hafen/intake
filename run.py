@@ -1,11 +1,11 @@
-from srs_intake import app
-from srs_intake.facilities.routes import facilities
-from srs_intake.main.routes import main
-from srs_intake.referrals.routes import referrals
-from srs_intake.users.routes import users
-from srs_intake.errors.handlers import errors
+from app import app
+from app.sources.routes import sources
+from app.main.routes import main
+from app.referrals.routes import referrals
+from app.users.routes import users
+from app.errors.handlers import errors
 
-app.register_blueprint(facilities)
+app.register_blueprint(sources)
 app.register_blueprint(main)
 app.register_blueprint(referrals)
 app.register_blueprint(users)

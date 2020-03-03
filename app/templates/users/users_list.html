@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="p-3 bg-white rounded shadow-sm">
+        <div class="card-body table-responsive-md" >
+            <table Class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Fax</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <th scope="col"><a href="{{ url_for('users.user', user_id=user.id)}}">{{ user.firstname }} {{ user.lastname }}</a></th>
+                            <td>{{ user.email}}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.fax }}</td>
+                            <td>{{ user.role }}</td>
+                            <td scope="col"><a href="{{ url_for('sources.source', source_id=user.source_id)}}">{{ user.source_user.name }}</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
