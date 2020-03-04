@@ -21,15 +21,17 @@ def list_users():
 
 
 @users.route("/user/new", methods=['GET', 'POST'])
-# @fresh_login_required
+@fresh_login_required
 def new_user():
     sources = Source.query.all()
     form = UserForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
-        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, source_id=form.source_id.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
+    if request.method == 'POST':
+    
+    # if form.validate_on_submit():
+        # hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
+        # user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, source_id=form.source_id.data, password=hashed_password)
+        # db.session.add(user)
+        # db.session.commit()
         # send_new_account_email(user)
         flash('The User was created successfully.', 'success')
         return redirect(url_for('users.login'))
@@ -37,7 +39,7 @@ def new_user():
 
 
 @users.route("/user/<int:user_id>")
-# @fresh_login_required
+@fresh_login_required
 def user(user_id):
     user = User.query.get_or_404(user_id)
     return render_template('users/user.html', title="User Info", user=user)
