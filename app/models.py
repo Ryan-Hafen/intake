@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import url_for, flash, redirect
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from cryptography.fernet import Fernet, base64
-from app import app, db, login_manager
+from app import app, db, login_manager, bcrypt
 from flask_login import UserMixin
 
 # Validating user login
@@ -44,7 +44,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=True)
     fax = db.Column(db.String(20), nullable=True)
     role = db.Column(db.String(20), nullable=True)
-    password = db.Column(db.String(60), nullable=True)
+    password = db.Column(db.String(60), nullable=True, default=bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8'))
     source_id = db.Column(db.Integer, db.ForeignKey('source.id'))
 
 

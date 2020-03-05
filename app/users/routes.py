@@ -25,14 +25,11 @@ def list_users():
 def new_user():
     sources = Source.query.all()
     form = UserForm()
-    if request.method == 'POST':
-    
-    # if form.validate_on_submit():
-        # hashed_password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8')
-        # user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, source_id=form.source_id.data, password=hashed_password)
-        # db.session.add(user)
-        # db.session.commit()
-        # send_new_account_email(user)
+    if request.method == "POST":
+        user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, source_id=form.source_id.data)
+        db.session.add(user)
+        db.session.commit()
+        send_new_account_email(user)
         flash('The User was created successfully.', 'success')
         return redirect(url_for('users.login'))
     return render_template('users/create_user.html', title='Create User', form=form, sources=sources)
@@ -79,8 +76,8 @@ def update_user(user_id):
 @fresh_login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
-    # if current_user.role != 'admin':
-    #     abort(403)
+    if current_user.role != 'admin':
+        abort(403)
     db.session.delete(user)
     db.session.commit()
     flash('The User was deleted successfully.', 'success')
