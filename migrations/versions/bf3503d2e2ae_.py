@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f9f82423cdfb
-Revises: 8d211a5474f0
-Create Date: 2020-03-04 15:14:52.444184
+Revision ID: bf3503d2e2ae
+Revises: 
+Create Date: 2020-03-06 10:00:52.102401
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f9f82423cdfb'
-down_revision = '8d211a5474f0'
+revision = 'bf3503d2e2ae'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('name', sa.String(length=50), nullable=True),
     sa.Column('address1', sa.String(length=120), nullable=True),
     sa.Column('address2', sa.String(length=120), nullable=True),
-    sa.Column('city', sa.String(length=20), nullable=True),
+    sa.Column('city', sa.String(length=50), nullable=True),
     sa.Column('state', sa.String(length=2), nullable=True),
     sa.Column('zip_code', sa.String(length=10), nullable=True),
     sa.Column('source', sa.String(length=10), nullable=True),
@@ -31,12 +31,12 @@ def upgrade():
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('firstname', sa.String(length=20), nullable=True),
-    sa.Column('lastname', sa.String(length=20), nullable=True),
+    sa.Column('firstname', sa.String(length=50), nullable=True),
+    sa.Column('lastname', sa.String(length=50), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=True),
-    sa.Column('phone', sa.String(length=20), nullable=True),
-    sa.Column('fax', sa.String(length=20), nullable=True),
-    sa.Column('role', sa.String(length=20), nullable=True),
+    sa.Column('phone', sa.String(length=50), nullable=True),
+    sa.Column('fax', sa.String(length=50), nullable=True),
+    sa.Column('role', sa.String(length=50), nullable=True),
     sa.Column('password', sa.String(length=60), nullable=True),
     sa.Column('source_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['source_id'], ['source.id'], ),
@@ -45,17 +45,16 @@ def upgrade():
     )
     op.create_table('referral',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('referral_status', sa.String(length=20), autoincrement=True, nullable=True),
-    sa.Column('firstname', sa.String(length=20), nullable=True),
-    sa.Column('lastname', sa.String(length=20), nullable=True),
+    sa.Column('firstname', sa.String(length=50), nullable=True),
+    sa.Column('lastname', sa.String(length=50), nullable=True),
     sa.Column('ssn', sa.BINARY(length=120), nullable=True),
-    sa.Column('phone', sa.String(length=20), nullable=True),
+    sa.Column('phone', sa.String(length=50), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
     sa.Column('dob', sa.DateTime(), nullable=True),
     sa.Column('poa', sa.String(length=120), nullable=True),
-    sa.Column('contact', sa.String(length=120), nullable=True),
+    sa.Column('poa_phone', sa.String(length=120), nullable=True),
     sa.Column('poa_address1', sa.String(length=120), nullable=True),
-    sa.Column('city', sa.String(length=20), nullable=True),
+    sa.Column('city', sa.String(length=50), nullable=True),
     sa.Column('state', sa.String(length=2), nullable=True),
     sa.Column('zip_code', sa.String(length=10), nullable=True),
     sa.Column('medicare', sa.BINARY(length=255), nullable=True),
@@ -88,18 +87,19 @@ def upgrade():
     sa.Column('treat_gait', sa.Boolean(), nullable=True),
     sa.Column('treat_other', sa.Boolean(), nullable=True),
     sa.Column('treat_other_desc', sa.String(length=120), nullable=True),
-    sa.Column('med_type', sa.String(length=20), nullable=True),
-    sa.Column('med_firstname', sa.String(length=20), nullable=True),
-    sa.Column('med_lastname', sa.String(length=20), nullable=True),
+    sa.Column('med_type', sa.String(length=50), nullable=True),
+    sa.Column('med_firstname', sa.String(length=50), nullable=True),
+    sa.Column('med_lastname', sa.String(length=50), nullable=True),
     sa.Column('med_npi', sa.String(length=10), nullable=True),
     sa.Column('med_address1', sa.String(length=120), nullable=True),
     sa.Column('med_address2', sa.String(length=120), nullable=True),
-    sa.Column('med_city', sa.String(length=20), nullable=True),
+    sa.Column('med_city', sa.String(length=50), nullable=True),
     sa.Column('med_state', sa.String(length=2), nullable=True),
     sa.Column('med_zip_code', sa.String(length=10), nullable=True),
     sa.Column('med_email', sa.String(length=120), nullable=True),
-    sa.Column('med_phone', sa.String(length=20), nullable=True),
-    sa.Column('med_fax', sa.String(length=20), nullable=True),
+    sa.Column('med_phone', sa.String(length=50), nullable=True),
+    sa.Column('med_fax', sa.String(length=50), nullable=True),
+    sa.Column('referral_status', sa.String(length=50), autoincrement=True, nullable=True),
     sa.Column('referral_date', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('source_id', sa.Integer(), nullable=True),

@@ -32,7 +32,7 @@ def new_referral():
         user = User.query.get(current_user.id)
         referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data, ssn=Referral.encrypt_data(form.ssn.data)
                            , phone=form.phone.data, email=form.email.data, dob=form.dob.data
-                           , poa=form.poa.data, contact=form.contact.data
+                           , poa=form.poa.data, poa_phone=form.poa_phone.data
                            , poa_address1=form.poa_address1.data
                            , city=form.city.data, state=form.state.data, zip_code=form.zip_code.data
                            , medicare=Referral.encrypt_data(form.medicare.data), secondary=Referral.encrypt_data(form.secondary.data), discharge_date=form.discharge_date.data
@@ -127,7 +127,7 @@ def update_referral(referral_id):
         referral.email=form.email.data
         referral.dob=form.dob.data
         referral.poa=form.poa.data
-        referral.contact=form.contact.data
+        referral.poa_phone=form.poa_phone.data
         referral.poa_address1=form.poa_address1.data
         referral.city=form.city.data
         referral.state=form.state.data
@@ -185,7 +185,7 @@ def update_referral(referral_id):
         form.email.data=referral.email
         form.dob.data=referral.dob
         form.poa.data=referral.poa
-        form.contact.data=referral.contact
+        form.poa_phone.data=referral.poa_phone
         form.poa_address1.data=referral.poa_address1
         form.city.data=referral.city
         form.state.data=referral.state

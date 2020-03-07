@@ -105,16 +105,16 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-6">
-                        {{ form.contact.label(class="form-control-label") }}
-                        {% if form.contact.errors %}
-                            {{ form.contact(class="form-control form-control-sm is-invalid") }}
+                        {{ form.poa_phone.label(class="form-control-label") }}
+                        {% if form.poa_phone.errors %}
+                            {{ form.poa_phone(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
-                                {% for error in form.contact.errors %}
+                                {% for error in form.poa_phone.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.contact(class="form-control form-control-sm") }}
+                            {{ form.poa_phone(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
                 </div>

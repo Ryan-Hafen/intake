@@ -1,7 +1,0 @@
-To view the referal, please visit the following link:
-
-{{ url_for('referrals.referral',referral_id=referral.id,_external=True) }}
-
-
-<p>Best Regards,</p>
-<p>Sacrament Rehab Solutions</p>

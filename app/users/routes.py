@@ -3,7 +3,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from flask_login import login_user, current_user, logout_user, fresh_login_required
 from app import app, db, bcrypt
 from app.models import User, Referral, Source
-from app.users.forms import LoginForm, UserForm, UpdateUserForm, RequestResetForm, ResetPasswordForm
+from app.users.forms import LoginForm, UserForm, RequestResetForm, ResetPasswordForm
 from app.utils import send_reset_email, send_new_account_email
 
 users = Blueprint('users', __name__)
@@ -32,7 +32,7 @@ def new_user():
         send_new_account_email(user)
         flash('The User was created successfully.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('users/create_user.html', title='Create User', form=form, sources=sources)
+    return render_template('users/crud_user.html', title='Create User', form=form, sources=sources)
 
 
 @users.route("/user/<int:user_id>")
@@ -44,17 +44,18 @@ def user(user_id):
 
 @users.route("/user/<int:user_id>/update", methods=['GET', 'POST'])
 @fresh_login_required
-def update_user(user_id):
+def crud_user(user_id):
     user = User.query.get_or_404(user_id)
     if current_user.role != 'admin':
          abort(403)
-    form = UpdateUserForm()
+    form = UserForm()
     if request.method == 'POST':
         user.firstname=form.firstname.data
         user.lastname=form.lastname.data
         user.email=form.email.data.lower()
         user.phone=form.phone.data
         user.fax=form.fax.data
+        user.job_type=form.job_type.data
         user.role=form.role.data
         user.source_id=form.source_id.data
         db.session.commit()
@@ -67,9 +68,10 @@ def update_user(user_id):
         form.email.data=user.email
         form.phone.data=user.phone
         form.fax.data=user.fax
+        form.job_type.data=user.job_type
         form.role.data=user.role
         form.source_id.data=user.source_id
-    return render_template('users/update_user.html', title='Update User', form=form, source=source)
+    return render_template('users/crud_user.html', title='Update User', form=form, source=source)
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])

@@ -97,13 +97,13 @@
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
-                            {% else %}
-                                <select class="form-control form-control-sm" id="source_id" name="source_id">
-                                    {% for source in source %}
-                                        <option value="{{source.id}}">{{source.name}}</option>
-                                    {% endfor %}
-                                </select>
-                            {% endif %}
+                        {% else %}
+                            <select class="form-control form-control-sm" id="source_id" name="source_id">
+                                {% for source in source %}
+                                    <option value="{{source.id}}">{{source.name}}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-row d-flex justify-content-end">

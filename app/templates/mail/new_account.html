@@ -1,9 +1,11 @@
 <p>Hello  {{ user.firstname }} {{ user.firstname }},</p>
-<p>We have created an account for you.</p>
-<p>Please click this link: 
+<p>Thank you for joining Sac Rehab Solutions' secure onine referral portal.</p>
+<p>Please follow the below link to  
     <a href={{ url_for('users.reset_token', token=token, _external=True) }}>
         <strong>set your password</strong>
     </a>.
 </p>
+<p>The username for your profile is the email address this message is being sent to.</p>
+<br/>
 <p>Best Regards,</p>
 <p>Sacrament Rehab Solutions</p>
