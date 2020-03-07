@@ -2,6 +2,9 @@
 {% block content %}
     <div class="my-3 p-3 bg-white rounded shadow-sm content-section">
         <div class="card-body table-responsive-md" >
+            <div class="form-group">
+                <input type="text" id="sou_input" onkeyup="sou_search()" class="form-control input-lg" autocomplete="off" name="input" placeholder="Search"  autofocus>
+            </div>
             <table Class="table table-striped table-sm">
                 <thead>
                     <tr>
@@ -13,10 +16,10 @@
                         <th scope="col">Source</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="sou_list_table">
                     {% for source in sources %}
                         <tr>
-                            <th scope="col"><a href="{{ url_for('sources.source', source_id=source.id)}}">{{ source.name }}</a></th>
+                            <td><a href="{{ url_for('sources.source', source_id=source.id)}}">{{ source.name }}</a></th>
                             <td>{{ source.address1}} {{ source.address2}}</td>
                             <td>{{ source.city }}</td>
                             <td>{{ source.state }}</td>
