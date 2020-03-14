@@ -1,49 +1,54 @@
-    /** Boostrap Override */
-    body {
-        background: #fafafa;
-        color: #333333;
-    }
+/** Boostrap Override */
+body {
+  background: #fafafa;
+  color: #333333;
+}
 
-    h1, h2, h3, h4, h5, h6 {
-        color: #ffffff; 
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ffffff;
+}
 
-    .bg-darkgray {
-        background-color: #a0b6b3;  
-    }
+.bg-darkgray {
+  background-color: #a0b6b3;
+}
 
-    .bg-black {
-        background-color: #000000;
-    }
+.bg-black {
+  background-color: #000000;
+}
 
-    .bg-darkslategray {
-        background-color: #1d3130;
-    }
+.bg-darkslategray {
+  background-color: #1d3130;
+}
 
-    .opacity-50 {
-        opacity: 0.5; 
-    }
+.opacity-50 {
+  opacity: 0.25;
+}
 
-    .site-header .navbar-nav .nav-link {
-        color: #1d3130;
-        font-weight: bold;
-    }
+.site-header .navbar-nav .nav-link {
+  color: #1d3130;
+  font-weight: bold;
+}
 
-    .site-header .navbar-nav .nav-link:hover {
-        color: #e6b34f;
-        text-shadow: 2px 2px 6px  #1d3130;
-        font-weight: bold;
-    }
+.site-header .navbar-nav .nav-link:hover {
+  color: #e6b34f;
+  text-shadow: 2px 2px 6px #1d3130;
+  font-weight: bold;
+}
 
-    .site-header .navbar-nav .nav-link.active {
-        font-weight: 700;
-        font-weight: bold;
-    }
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 700;
+  font-weight: bold;
+}
 
-    .content-section {
-        background: #ffffff;
-        padding: 10px 20px;
-        border: 1px solid #dddddd;
-        border-radius: 3px;
-        margin-bottom: 20px;
-    }
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
