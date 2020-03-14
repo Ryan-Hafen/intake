@@ -23,7 +23,7 @@ class ReferralForm(FlaskForm):
     zip_code = StringField('Zip Code')
     medicare = StringField('Medicare', validators=[DataRequired(), Length(min=0, max=11)])
     secondary = StringField('Secondary Insurance')
-    discharge_date = DateField('Discharge Date')
+    discharge_date = DateField('Hospital/SNF/Home Health Discharge Date')
     notes = TextAreaField('Diagnosis / Reason for referral / Additional notes')
     disc_slp = BooleanField('SLP Speech - Language Pathology')
     disc_ot = BooleanField('OT Occupational Therapy', default=True)
