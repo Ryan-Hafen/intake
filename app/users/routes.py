@@ -62,7 +62,7 @@ def crud_user(user_id):
         flash('The User was updated successfully.', 'success')
         return redirect(url_for('users.user',user_id=user.id))
     elif request.method == 'GET':
-        source = Source.query.all()
+        sources = Source.query.all()
         form.firstname.data=user.firstname
         form.lastname.data=user.lastname
         form.email.data=user.email
@@ -71,7 +71,7 @@ def crud_user(user_id):
         form.job_type.data=user.job_type
         form.role.data=user.role
         form.source_id.data=user.source_id
-    return render_template('users/crud_user.html', title='Update User', form=form, source=source)
+    return render_template('users/crud_user.html', title='Update User', form=form, sources=sources)
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])
