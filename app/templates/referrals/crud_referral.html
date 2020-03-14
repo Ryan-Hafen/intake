@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        {{ form.firstname.label(class="form-control-label") }}
+                        {{ form.firstname.label(class="form-control-label col-form-label-sm") }}
                         {% if form.firstname.errors %}
                             {{ form.firstname(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -23,7 +23,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-6">
-                        {{ form.lastname.label(class="form-control-label") }}
+                        {{ form.lastname.label(class="form-control-label col-form-label-sm") }}
                         {% if form.lastname.errors %}
                             {{ form.lastname(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        {{ form.phone.label(class="form-control-label") }}
+                        {{ form.phone.label(class="form-control-label col-form-label-sm") }}
                         {% if form.phone.errors %}
                             {{ form.phone(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.email.label(class="form-control-label") }}
+                        {{ form.email.label(class="form-control-label col-form-label-sm") }}
                         {% if form.email.errors %}
                             {{ form.email(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -64,7 +64,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.dob.label(class="form-control-label") }}
+                        {{ form.dob.label(class="form-control-label col-form-label-sm") }}
                         {% if form.dob.errors %}
                             {{ form.dob(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        {{ form.poa_address1.label(class="form-control-label") }}
+                        {{ form.poa_address1.label(class="form-control-label col-form-label-sm") }}
                         {% if form.poa_address1.errors %}
                             {{ form.poa_address1(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        {{ form.city.label(class="form-control-label") }}
+                        {{ form.city.label(class="form-control-label col-form-label-sm") }}
                         {% if form.city.errors %}
                             {{ form.city(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -107,7 +107,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.state.label(class="form-control-label") }}
+                        {{ form.state.label(class="form-control-label col-form-label-sm") }}
                         {% if form.state.errors %}
                             {{ form.state(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -120,7 +120,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.zip_code.label(class="form-control-label") }}
+                        {{ form.zip_code.label(class="form-control-label col-form-label-sm") }}
                         {% if form.zip_code.errors %}
                             {{ form.zip_code(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        {{ form.medicare.label(class="form-control-label") }}
+                        {{ form.medicare.label(class="form-control-label col-form-label-sm") }}
                         {% if form.medicare.errors %}
                             {{ form.medicare(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -148,7 +148,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.secondary.label(class="form-control-label") }}
+                        {{ form.secondary.label(class="form-control-label col-form-label-sm") }}
                         {% if form.secondary.errors %}
                             {{ form.secondary(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -161,7 +161,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form.discharge_date.label(class="form-control-label") }}
+                        {{ form.discharge_date.label(class="form-control-label col-form-label-sm") }}
                         {% if form.discharge_date.errors %}
                             {{ form.discharge_date(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -568,7 +568,7 @@
                   </div>
                   <div class="form-row">
                       <div class="form-group col-md-4">
-                          {{ form.med_firstname.label(class="form-control-label") }}
+                          {{ form.med_firstname.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_firstname.errors %}
                               {{ form.med_firstname(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -581,7 +581,7 @@
                           {% endif %}
                       </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_lastname.label(class="form-control-label") }}
+                          {{ form.med_lastname.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_lastname.errors %}
                               {{ form.med_lastname(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -594,7 +594,7 @@
                           {% endif %}
                       </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_npi.label(class="form-control-label") }}
+                          {{ form.med_npi.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_npi.errors %}
                               {{ form.med_npi(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -609,7 +609,7 @@
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                        {{ form.med_phone.label(class="form-control-label") }}
+                        {{ form.med_phone.label(class="form-control-label col-form-label-sm") }}
                         {% if form.med_phone.errors %}
                             {{ form.med_phone(class="form-control form-control-sm is-invalid") }}
                             <div class="invalid-feedback">
@@ -622,7 +622,7 @@
                         {% endif %}
                     </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_fax.label(class="form-control-label") }}
+                          {{ form.med_fax.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_fax.errors %}
                               {{ form.med_fax(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -635,7 +635,7 @@
                           {% endif %}
                       </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_email.label(class="form-control-label") }}
+                          {{ form.med_email.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_email.errors %}
                               {{ form.med_email(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -650,7 +650,7 @@
                   </div>
                   <div class="form-row">
                       <div class="form-group col-md-12">
-                          {{ form.med_address1.label(class="form-control-label") }}
+                          {{ form.med_address1.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_address1.errors %}
                               {{ form.med_address1(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -665,7 +665,7 @@
                   </div>
                   <div class="form-row">
                       <div class="form-group col-md-12">
-                          {{ form.med_address2.label(class="form-control-label") }}
+                          {{ form.med_address2.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_address2.errors %}
                               {{ form.med_address2(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -680,7 +680,7 @@
                   </div>
                   <div class="form-row">
                       <div class="form-group col-md-4">
-                          {{ form.med_city.label(class="form-control-label") }}
+                          {{ form.med_city.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_city.errors %}
                               {{ form.med_city(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -693,7 +693,7 @@
                           {% endif %}
                       </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_state.label(class="form-control-label") }}
+                          {{ form.med_state.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_state.errors %}
                               {{ form.med_state(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
@@ -706,7 +706,7 @@
                           {% endif %}
                       </div>
                       <div class="form-group col-md-4">
-                          {{ form.med_zip_code.label(class="form-control-label") }}
+                          {{ form.med_zip_code.label(class="form-control-label col-form-label-sm") }}
                           {% if form.med_zip_code.errors %}
                               {{ form.med_zip_code(class="form-control form-control-sm is-invalid") }}
                               <div class="invalid-feedback">
