@@ -37,4 +37,4 @@ def send_completed_referral_email(referral, recipients):
     send_email('The referral for {referral.firstname} {referral.lastname} has been completed.',
                'noreply@sacrehabsolutions.com',
                [recipients],
-               render_template("mail/reset_password.html", referral=referral))
+               render_template("mail/complete_referral.html", referral=referral))

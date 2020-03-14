@@ -30,9 +30,8 @@ def new_referral():
     form = ReferralForm()
     if form.validate_on_submit():
         user = User.query.get(current_user.id)
-        referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data, ssn=Referral.encrypt_data(form.ssn.data)
+        referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data
                            , phone=form.phone.data, email=form.email.data, dob=form.dob.data
-                           , poa=form.poa.data, poa_phone=form.poa_phone.data
                            , poa_address1=form.poa_address1.data
                            , city=form.city.data, state=form.state.data, zip_code=form.zip_code.data
                            , medicare=Referral.encrypt_data(form.medicare.data), secondary=Referral.encrypt_data(form.secondary.data), discharge_date=form.discharge_date.data
@@ -68,16 +67,15 @@ def new_referral():
 @fresh_login_required
 def referral(referral_id):
     referral = Referral.query.get_or_404(referral_id)
-    to_decrypt = Referral.query.filter_by(id=referral_id).with_entities(Referral.ssn,Referral.medicare,Referral.secondary).first()
-    d_ssn = Referral.decrypt_data(to_decrypt.ssn)
+    to_decrypt = Referral.query.filter_by(id=referral_id).with_entities(Referral.medicare,Referral.secondary).first()
     d_medicare = Referral.decrypt_data(to_decrypt.medicare)
     d_secondary = Referral.decrypt_data(to_decrypt.secondary)
     submitter = User.query.get(referral.user_id)
     user = User.query.get(current_user.id)
     if referral.source_id == current_user.source_id:
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn, d_medicare=d_medicare, d_secondary=d_secondary)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_medicare=d_medicare, d_secondary=d_secondary)
     elif current_user.role == 'admin':
-        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_ssn=d_ssn, d_medicare=d_medicare, d_secondary=d_secondary)
+        return render_template('referrals/referral.html', title=f"{referral.firstname} {referral.lastname}", referral=referral, user=user, submitter=submitter, d_medicare=d_medicare, d_secondary=d_secondary)
     else:
         abort(403)
 
@@ -122,12 +120,9 @@ def update_referral(referral_id):
     if form.validate_on_submit():
         referral.firstname=form.firstname.data
         referral.lastname=form.lastname.data
-        referral.ssn=Referral.encrypt_data(form.ssn.data)
         referral.phone=form.phone.data
         referral.email=form.email.data
         referral.dob=form.dob.data
-        referral.poa=form.poa.data
-        referral.poa_phone=form.poa_phone.data
         referral.poa_address1=form.poa_address1.data
         referral.city=form.city.data
         referral.state=form.state.data
@@ -180,12 +175,9 @@ def update_referral(referral_id):
     elif request.method == 'GET':
         form.firstname.data=referral.firstname
         form.lastname.data=referral.lastname
-        form.ssn.data=Referral.decrypt_data(referral.ssn)
         form.phone.data=referral.phone
         form.email.data=referral.email
         form.dob.data=referral.dob
-        form.poa.data=referral.poa
-        form.poa_phone.data=referral.poa_phone
         form.poa_address1.data=referral.poa_address1
         form.city.data=referral.city
         form.state.data=referral.state

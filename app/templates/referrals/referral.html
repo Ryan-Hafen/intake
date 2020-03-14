@@ -9,12 +9,12 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">Source Name: </span>{{ referral.source.name }}
+                            <span class="font-weight-bold pr-3">Source Name: </span>{{ referral.source_ref.name }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">Address: </span>{{ referral.source.address1}} {{ referral.source.address1}}, {{ referral.source.city}}, {{ referral.source.state}} {{ referral.source.zip_code}}
+                            <span class="font-weight-bold pr-3">Address: </span>{{ referral.source_ref.address1}} {{ referral.source_ref.address1}}, {{ referral.source_ref.city}}, {{ referral.source_ref.state}} {{ referral.source_ref.zip_code}}
                         </div>
                     </div>
                     <div class="form-row">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">Source: </span>{{ referral.sources.source}}
+                            <span class="font-weight-bold pr-3">Source: </span>{{ referral.source_ref.source}}
                         </div>
                     </div>
                 </div>
@@ -40,11 +40,6 @@
                     <div class="form-row">
                         <div class="form-group col-sm-12">
                             <span class="font-weight-bold pr-3">Name: </span>{{ referral.firstname }} {{ referral.lastname }}
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">SSN: </span>{{ d_ssn }}
                         </div>
                     </div>
                     <div class="form-row">
@@ -64,17 +59,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">P.O.A.: </span>{{ referral.poa }}
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">P.O.A. Phone: </span>{{ referral.poa_phone }}
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <span class="font-weight-bold pr-3">P.O.A. Adress: </span>{{ referral.poa_address1 }}, {{ referral.city }}, {{ referral.state }} {{ referral.zip_code }}
+                            <span class="font-weight-bold pr-3">Patient Adress: </span>{{ referral.poa_address1 }}, {{ referral.city }}, {{ referral.state }} {{ referral.zip_code }}
                         </div>
                     </div>
                     <div class="form-row">

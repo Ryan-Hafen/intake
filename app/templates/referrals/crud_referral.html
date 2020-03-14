@@ -9,7 +9,7 @@
                   <legend class="col-form-label col-md-12 p-1 my-1 text-white bg-secondary rounded shadow-sm">Patient Info</legend>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ form.firstname.label(class="form-control-label") }}
                         {% if form.firstname.errors %}
                             {{ form.firstname(class="form-control form-control-sm is-invalid") }}
@@ -22,7 +22,7 @@
                             {{ form.firstname(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         {{ form.lastname.label(class="form-control-label") }}
                         {% if form.lastname.errors %}
                             {{ form.lastname(class="form-control form-control-sm is-invalid") }}
@@ -33,19 +33,6 @@
                             </div>
                         {% else %}
                             {{ form.lastname(class="form-control form-control-sm") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group col-md-4">
-                        {{ form.ssn.label(class="form-control-label") }}
-                        {% if form.ssn.errors %}
-                            {{ form.ssn(class="form-control form-control-sm is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.ssn.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.ssn(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
                 </div>
@@ -87,34 +74,6 @@
                             </div>
                         {% else %}
                             {{ form.dob(class="form-control form-control-sm") }}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        {{ form.poa.label(class="form-control-label") }}
-                        {% if form.poa.errors %}
-                            {{ form.poa(class="form-control form-control-sm is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.poa.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.poa(class="form-control form-control-sm") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group col-md-6">
-                        {{ form.poa_phone.label(class="form-control-label") }}
-                        {% if form.poa_phone.errors %}
-                            {{ form.poa_phone(class="form-control form-control-sm is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.poa_phone.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.poa_phone(class="form-control form-control-sm") }}
                         {% endif %}
                     </div>
                 </div>

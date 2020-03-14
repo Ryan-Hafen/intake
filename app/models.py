@@ -77,7 +77,6 @@ class Referral(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(50), nullable=True)
     lastname = db.Column(db.String(50), nullable=True)
-    ssn = db.Column(db.BINARY(120), nullable=True)
     phone = db.Column(db.String(50), nullable=True)
     email = db.Column(db.String(255), nullable=True)
     dob = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
