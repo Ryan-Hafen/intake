@@ -28,9 +28,9 @@ def send_reset_email(user):
                render_template("mail/reset_password.html", user=user, token=token))
 
 def send_new_referral_email(referral, sender):
-    send_email('New Patient Referral.',
+    send_email('The referral for {referral.firstname} {referral.lastname} has been completed.',
                [sender],
-               'noreply@sacrehabsolutions.com',
+               'intake@sacrehabsolutions.com',
                render_template("mail/new_referral.html", referral=referral))
 
 def send_completed_referral_email(referral, recipients):
