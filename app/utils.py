@@ -29,16 +29,12 @@ def send_reset_email(user):
 
 def send_new_referral_email(referral, user):
     send_email(f'The new referral for {referral.firstname} {referral.lastname} has been submitted.',
-                # [sender],
-            #    'intake@sacrehabsolutions.com',
-            'noreply@sacrehabsolutions.com',
-            [user.email],
-               render_template("mail/new_referral.html", referral=referral, user=user))
+                'intake@sacrehabsolutions.com',
+                'intake@sacrehabsolutions.com',
+                render_template("mail/new_referral.html", referral=referral, user=user))
 
 def send_completed_referral_email(referral, user):
     send_email(f'The referral for {referral.firstname} {referral.lastname} has been completed.',
-            #    'noreply@sacrehabsolutions.com',
-            #    [recipients],
-            'noreply@sacrehabsolutions.com',
-            [user.email],
-               render_template("mail/complete_referral.html", referral=referral, user=user))
+                'noreply@sacrehabsolutions.com',
+                [user.email],
+                render_template("mail/complete_referral.html", referral=referral, user=user))

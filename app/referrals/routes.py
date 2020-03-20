@@ -28,7 +28,7 @@ def list_referrals():
 @fresh_login_required
 def new_referral():
     form = ReferralForm()
-    if form.validate_on_submit():
+    if request.method == 'POST':
         user = User.query.get(current_user.id)
         referral = Referral(firstname=form.firstname.data, lastname=form.lastname.data
                            , phone=form.phone.data, email=form.email.data, dob=form.dob.data
