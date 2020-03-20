@@ -56,8 +56,7 @@ def new_referral():
         db.session.add(referral)
         db.session.commit()
         referral = Referral.query.get(referral.id)
-        s_email = user.email
-        send_new_referral_email(referral, s_email)
+        send_new_referral_email(referral, user)
         flash('The Referral was submitted successfully.', 'success')
         return redirect(url_for('referrals.list_referrals'))
     return render_template('referrals/crud_referral.html', title='Create Referral', form=form)
@@ -88,7 +87,7 @@ def referral_complete(referral_id):
         referral = Referral.query.get_or_404(referral_id)
         user = User.query.get(referral.user_id)
 
-        send_completed_referral_email(referral, user.email)
+        send_completed_referral_email(referral, user)
 
         referral.referral_status = 'complete'
         db.session.commit()

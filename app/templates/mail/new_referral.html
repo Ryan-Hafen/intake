@@ -1,7 +1,9 @@
-<p>To view the referal, please visit the following link: 
+<p>To view the referral, please visit the following link by  
     <a href={{ url_for('referrals.referral',referral_id=referral.id,_external=True) }}>
-        <strong>set your password</strong>
+        <strong>clicking here</strong>
     </a>.
 </p>
-<p>Best Regards,</p>
-<p>Sacrament Rehab Solutions</p>
+<br/>
+<p>Thank you,</p>
+<p>{{ user.firstname }} {{ user.lastname }}<p>
+<p>{{ user.source_user.name }}<p>
