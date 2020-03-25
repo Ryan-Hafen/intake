@@ -1,4 +1,4 @@
-<p>Hello  {{ user.firstname }} {{ user.firstname }},</p>
+<p>Hello  {{ user.firstname }} {{ user.lastname }},</p>
 <p>Thank you for joining Sac Rehab Solutions' secure onine referral portal.</p>
 <p>Please follow the below link to  
     <a href={{ url_for('users.reset_token', token=token, _external=True) }}>
