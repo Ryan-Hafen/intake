@@ -69,6 +69,13 @@
                             </h5>
                         </div>
                     </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="lh-100">
+                            <small class="lh-100">
+                                <p>This will delete all <strong>USERS</strong> assigned to this Source.</p>
+                            </small>
+                        </div>
+                    </div>
                     <div class="modal-footer form-row d-flex justify-content-between">
                         <div class="form-group d-flex justify-content-start">
                             <form action="{{ url_for('sources.delete_source',source_id=source.id) }}" method="POST">

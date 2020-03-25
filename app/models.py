@@ -29,7 +29,7 @@ class Source(db.Model):
     state = db.Column(db.String(2), nullable=True)
     zip_code = db.Column(db.String(10), nullable=True)
     source = db.Column(db.String(10), nullable=True)
-    users = db.relationship('User', backref='source_user', lazy=True)
+    users = db.relationship('User', backref='source_user', cascade="all,delete", lazy=True)
     referrals = db.relationship('Referral', backref='source_ref', lazy=True)
 
     def __repr__(self):
