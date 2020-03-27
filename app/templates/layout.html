@@ -84,7 +84,7 @@
             {% endif%}
         {% endwith %}
     </header>
-    <main class="container mb-5">
+    <main class="container mb-5 min-height-600">
         <div class="d-flex align-items-center p-3 my-3 text-white bg-darkslategray rounded shadow-sm">
             <div class="lh-100">
                 <h5 class="lh-100">
@@ -95,8 +95,8 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="footer fixed-bottom opacity-50">
-        <div class="container text-right">
+    <footer class="footer opacity-50">
+        <div class="container text-center">
             <a href="#"><img src="{{ url_for('static', filename='img/hsl-logo-tran-min.png') }}" width="96" height="28.5" alt=""></a>
         </div>
     </footer>

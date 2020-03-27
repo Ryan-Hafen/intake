@@ -26,7 +26,11 @@ h6 {
 }
 
 .opacity-50 {
-  opacity: 0.25;
+  opacity: 0.75;
+}
+
+.min-height-600 {
+  min-height: 600px;
 }
 
 .site-header .navbar-nav .nav-link {

@@ -76,4 +76,4 @@ def delete_source(source_id):
     db.session.delete(source)
     db.session.commit()
     flash('The Source was deleted successfully.', 'success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('sources.list_source'))
