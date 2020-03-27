@@ -16,7 +16,8 @@ class UserForm(FlaskForm):
     fax = StringField('Fax', validators=[Length(min=0, max=10)], render_kw={"placeholder": "3334445555"})
     job_type = StringField('Job Type')
     role = SelectField('Role', choices=roles_list)
-    source_id = SelectField('Source', coerce=int)
+    # source_id = SelectField('Source', coerce=int)
+    source_id = QuerySelectField('Source', query_factory=lambda: Source.query.all(), get_label='name', validators=[DataRequired()])
     submit = SubmitField('Save')
 
     def validate_email(self, email):
@@ -30,9 +31,14 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. Please check the email.')
+
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "example@email.com"})
-    submit = SubmitField('Request Password Reset')    
+    submit = SubmitField('Request Password Reset')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -42,9 +48,4 @@ class RequestResetForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')]) 
-    submit = SubmitField('Reset Password')       
-
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is None:
-            raise ValidationError('There is no account with that email. You must register first.')
+    submit = SubmitField('Reset Password')

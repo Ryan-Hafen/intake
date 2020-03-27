@@ -25,7 +25,7 @@ def list_users():
 def new_user():
     sources = Source.query.all()
     form = UserForm()
-    if request.method == "POST":
+    if form.validate_on_submit():
         user = User(firstname=form.firstname.data,lastname=form.lastname.data, email=form.email.data.lower(), phone=form.phone.data, fax=form.fax.data, role=form.role.data, source_id=form.source_id.data)
         db.session.add(user)
         db.session.commit()
@@ -49,7 +49,7 @@ def crud_user(user_id):
     if current_user.role != 'admin':
          abort(403)
     form = UserForm()
-    if request.method == 'POST':
+    if form.validate_on_submit():
         user.firstname=form.firstname.data
         user.lastname=form.lastname.data
         user.email=form.email.data.lower()
@@ -71,7 +71,7 @@ def crud_user(user_id):
         form.job_type.data=user.job_type
         form.role.data=user.role
         form.source_id.data=user.source_id
-    return render_template('users/crud_user.html', title='Update User', form=form, sources=sources)
+    return render_template('users/crud_user.html', title='Update User', form=form)
 
 
 @users.route("/user/<int:user_id>/delete", methods=['POST'])
